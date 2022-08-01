@@ -259,12 +259,40 @@
 /*
     Son arreglos bidimencionales, que se representaria mejor como filas y columnas, agregaremos un ejemplo para que se entienda de una mejor manera:
    
-        Manera grafica de verlo                                     Primera manera de pasarlo a java.
-            n   n   n   n   n                                       int m[][] = {{1,2,3,4,5},{2,4,6,8,10},{2,3,6,9,12,15}};
+        Manera grafica de verlo                                     
+            n   n   n   n   n                                       
             0   1   2   3   4                                       
-    m    0  1   2   3   4   5       m = filas.                      Segunda manera de pasarlo a java.
-    m    1  2   4   6   8   10      n = columnas.   
-    m    2  3   6   9   12  15
+    m    0  1   2   3   4   5       m = filas.                      
+    m    1  2   4   6   8   10      n = columnas.                   
+    m    2  3   6   9   12  15                                      
+                                                                       
+//Primera manera de pasarlo a java.                                                                
+        int matriz[][] = {{1,2,3,4,5},{2,4,6,8,10},{2,3,6,9,12,15}};
+        
+        En la primera manera agregamos los datos manuales y para ponerlos lo hacemos de esa manera y para imprimirlo, necesitamos 2 bucles for anidados.
 
-    
+        for(int i=0; i<nFilas; i++){
+            for(int j=0; j<nCol; j++){
+                System.out.print(matriz[i][j] + " - ");
+            }
+        }
+
+
+//Segunda manera de pasarlo a java. 
+        int m[][], nFilas, nColumnas;
+        nFilas = 3; 
+        nColumnas = 5;
+        matriz = new int[nFilas][nColumnas];
+
+        La segunda manera es si nosotros le preguntamos al usuario si desea ingresar la cantidad de filas y columnas, luego se usa un bucle for para 
+        solicitar los datos, de esta manera: 
+
+        System.out.println("Digite la matriz");
+        for(int i=0; i < nFilas; i++){
+            for(int j=0; j < nCol; j++){
+                System.out.print("Matriz ["+i+"] ["+j+"]: ");
+                matriz[i][j] = entrada.nextInt();
+            }
+        }
+        Hacemos 2 bucles anidados y de esta manera rellenamos el codigo y para mostrarlo, realizamos el mismo procedimiento que en la primera manera.
 */
