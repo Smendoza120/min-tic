@@ -269,7 +269,8 @@
 //Primera manera de pasarlo a java.                                                                
         int matriz[][] = {{1,2,3,4,5},{2,4,6,8,10},{2,3,6,9,12,15}};
         
-        En la primera manera agregamos los datos manuales y para ponerlos lo hacemos de esa manera y para imprimirlo, necesitamos 2 bucles for anidados.
+        En la primera manera agregamos los datos manuales y para ponerlos lo hacemos de esa manera y para imprimirlo, necesitamos 2 bucles for anidados
+        siempre van las filas primero que las columnas.
 
         for(int i=0; i<nFilas; i++){
             for(int j=0; j<nCol; j++){
@@ -295,4 +296,216 @@
             }
         }
         Hacemos 2 bucles anidados y de esta manera rellenamos el codigo y para mostrarlo, realizamos el mismo procedimiento que en la primera manera.
+*/
+
+//Programacion orientada a objetos (POO):
+
+/*
+    Es como expresamos las cosas de un nivel mas cercano a como lo hacemos fuera de la computadora, por ejemplo un coche:
+
+        Color
+        Marca
+        KM
+    
+    tambien estan los metodos, que son lo que haremos con nuestro objeto: 
+        
+        Encender
+        Acelerar
+        Frenar
+*/
+
+//Clases 
+/*        
+    Para crear una clase, tenemos que crear un nuevo proyecto, este proyecto nos deja un archivo abierto, despues nos vamos a la carpeta de packages, 
+    click derecho y creamos una clase (Java class), le ponemos el nombre deseado y tambien le damos los atributos que deseamos (color, nombre, marca)
+    los atributos tienen que ir de la manera correcta, si son Strings o si son numeros enteros (int), ETC.
+
+    Una vez finalicemos con la creacion de la clase, usaremos esos atributos, entonces para ello tenemos que llamarlos, para ello hacemos los siguiente:
+        
+        Coche coche1 = new Coche();
+        
+          -Se pone el nombre de la clase creada.
+          -Se le agrega el nombre deseado que es como lo llamaremos, en este caso coche1.
+          -Luego lo igualamos a new y agregamos nuemvamente el nombre de la clase creada con parentesis.
+          -Para llamarlos, solo necesitamos el nombre que le pusimos, y para acceder a los atributos le agregamos un punto y nos dara las opciones.
+*/
+
+//Metodos
+/*
+//Creacion de metodos
+    El metodo es una accion o comportamiento de un objeto, se hace de la siguiente manera: 
+
+        public void Metodo(){
+        --------------
+        }
+
+        -Public: modificador de acceso.
+        -Void: Valor de retorno.
+        -Metodo: nombre del metodo.
+        -(): Esto es un argumento.
+
+    Para hacer uso de los metodos se pueden traer de otros archivos de la misma carpeta package, para poder traerlo, llamamos al nombre, en el ejemplo esta
+    como metodo y se realiza la accion de la siguiente manera: 
+
+        Metodo me = new Metodo();
+
+    De esta manera traemos todos los atributos de nuestro objeto, como vimos en el ejemplo pasado, con los colores del coche o tambien con la marca o km,
+    pero lo hacemos en el archivo main para que todo quede de una manera mas organizada.
+*/
+
+//Parametros y argumentos
+/*
+    Para agregarle parametros a un metodo realizamos lo siguiente: 
+
+        public void Metodo(int a, String b){
+        --------------
+        }
+
+        objeto.Metodo(1, "Hola");
+
+        En el archivo del metodo agregamos 2 variables y las pasamos como un parametro, esto hace que cuando se llame el metodo, se tenga que rellenar la 
+        informacion como esta en el segundo ejemplo que seria un argumento, de esta manera tenemos los parametros y argumentos resueltos. 
+*/
+
+//Retorno de valores.
+/*
+
+    Para este retorno de valores, vamos a cambiar lo que habiamos hecho anteriormente 
+    
+        public int Metodo(){
+        --------------
+        }
+
+        Ya no agregaremos la palabra void, si no el tipo de variable como (string, int, float) y para poder devolver los valores que queremos realizamos 
+        lo trataremos con un ejemplo, en este caso queremos una suma: 
+
+        public int Metodo(int numero1, int numero2){
+            int suma = numero1 + numero2;
+            return suma;
+        }
+
+        De esta manera esta como un metodo ahora llamaremos al metodo para poder ingresarle los valores y de esta manera poder imprimirlo, hay 2 maneras de
+        imprimir este metodo:
+
+        primera forma: 
+        
+        Metodo me = new Metodo();
+
+        int resultado = me.suma(5,5)
+        System.out.println(resultado); 10
+
+        De esta manera llamamos al metodo, le agregamos el nombre deseado y para poder realizar la operacion, primero creamos una variable con un nombre
+        deseado, en este caso sera resultado, luego llamamos al metodo y traemos al objeto, y dentro agregamos los valores, al final imprimimos la variable
+        creada.
+
+        segunda forma: 
+        
+        Metodo me = new Metodo();
+
+        System.out.println(me.suma(5,5)); 10
+
+        Continuamos llamando al metodo y luego agregamos la formula para imprimir en pantalla, pero dentro de la misma, agregamos la formula, de esta manera,
+        podemos llegar al mismo resultado anterior.
+*/
+
+//Metodo constructor
+/*
+    Este metodo se utiliza para asegurarnos de que los objetos siempre tengan valores validos, un constructor se crea de la siguiente manera: 
+
+        public Persona(String nombre, int edad){
+            this.nombre = nombre;
+            this.edad = edad;
+        }
+        
+    Estos constructores son publicos pero no se le agrega un valor de retorno como veiamos anteriormente, solo le agregamos un nombre, en este caso Persona,
+    y dentro le podemos agregar parametros, se pueden agregar de 2 formas estos parametros. 
+
+    Primera forma (sea el mismo nombre de la variable externa o atributo) 
+    
+        public Persona(String nombre, int edad){
+            this.nombre = nombre;
+            this.edad = edad;
+        }
+
+        De esta forma, tenemos que decirle al programa cual variable es cual, para eso utilizamos this punto y luego agregamos el nombre de la variable, como
+        se ve en el ejemplo, aqui le estamos diciendo esta variable es el atributo.
+
+    Segunda forma (se ponen diferentes variables al atributo)
+    
+        public Persona(String _nombre, int _edad){
+            nombre = _nombre;
+            edad = _edad;
+        }
+        
+        De esta manera, solo agregamos en nombre del atributo y lo igualamos a la variable que esta dentro de los parametros y como son diferentes el 
+        programa detecta automaticamente, que se tratan de 2varables diferentes.
+
+    Para imprimir los metodos, hacemos lo mismo de antes, lo llamamos y ponemos el nombre con el punto y llamamos el metodo, de esta manera: 
+
+        Persona pe = new Persona("Harold", 24);
+        
+        pe.mostrarDatos();
+*/
+
+//Sobrecarga de mettodos y constructores.
+/*
+    Esto pasa porque agregamos uno o mas metodos, ya sean normales o constructores, veremos un ejemplo para entenderlo de una mejor manera: 
+
+            public Persona(String nombre, int edad) {
+                this.nombre = nombre;
+                this.edad = edad;
+            }
+
+            public Persona(String dni) {
+                this.dni = dni;
+            }
+
+        Aqui tenemos 2 constructores, cada uno tiene diferentes parametros, el primero tiene 2 y el segundo tiene 1, cuando llamemos a este constructor, 
+        el programa nos preguntara cual de los 2 constructores usaremos, dependiendo que constructor queremos usar, le pasamos cierto tipo de datos o no,
+        para que esta sobrecarga funcione, cada constructor o metodo debe tener diferentes cantidades de parametros.
+
+            public void correr(){
+                System.out.println("Soy " + nombre + ",  tengo " + edad + " años y estoy corriendo una maraton.");
+            }
+
+            public void correr(int km){
+                System.out.println("He corrido " + km + " kilometros.");
+            }
+            
+        Como vemos, pasa lo mismo que con los constructores, el primero no tiene parametros y el segundo si tiene 1 ahora veremos como los mostramos por 
+        pantalla:
+
+            Persona persona1 = new Persona("Harold", 24);
+            persona1.correr();
+
+            Persona persona2 = new Persona("1233496433");
+            persona2.correr(100);
+
+        Llamamos al constructor y como sabemos tiene solo 2 parametros, los cuales eran el nombre y la edad, aqui rellenamos etos campos, tambien lo ponemos
+        el nombre y le damos el metodo de constructor que no tiene parametros, el segundo constructor tiene solo un parametro el cual pregunta el dni pero 
+        de forma String, lo gual rellenamos en el ejemplo y tambien llamamos al otro metodo y le agregamos el parametro, en este caso es 100, y de esta 
+        manera tenemos la sobrecarga de metodos y constructores.
+*/
+
+//Modificadores de acceso
+/*
+    Los modificadores de acceso significa que en la parte superior donde se agregan las variables globales de un archivo, se pueden clasificar entre privado
+    y publico, si se deja en publico, cualquier archivo puede ingresar a dicho dato ya sea dentro del mismo paquete como fuera de el, y privado, significa
+    que solo dicho archivo puede ingresar a ese dato. 
+
+        private int atributo1;
+        public int atributo1;
+
+    Es el mismo nombre, pero uno tiene el estado privado y el otro tiene el nombre en publico. 
+
+    Si queremos usar un dato publico de otra carpeta tenemos que importarla, para ello en la parte superior se agrega lo siguiente: 
+
+        import paquete1.Clase1;
+
+    Se pone la palabra reservada import y se pone el nombre del archivo y con un punto ingresamos a las caracteristicas.
+*/
+
+//Encapsulamiento
+/*
+    
 */
