@@ -505,7 +505,100 @@
     Se pone la palabra reservada import y se pone el nombre del archivo y con un punto ingresamos a las caracteristicas.
 */
 
-//Encapsulamiento
+//Encapsulamiento y metodos accesores.
 /*
-    
+    Para hacer un encapsulamiento a datos que no queremos que sean modificados, lo que hacemos es ponerlos en privado en vez de publico. 
+
+        private int edad;  De esta manera esta privada la edad, lo que quiere decir que solo el mismo archivo lo puede modificar. 
+        public int edad;  De esta forma nuestra edad esta publica y la pueden modificar desde otros archivos  y tambien desde el mismo. 
+
+    Los metodos accesores permiten consultar estos datos publicos, pero sin hacer cambio alguno, para ello utilizamos 2 metodos, los cuales son (Setters y 
+    Getters).
+
+        Setters: carga un valor. 
+        Getters: nos devuelve el valor de Setters.
+
+    Ahora realizaremos un ejemplo: 
+
+        private int edad; 
+
+            public void setEdad(int edad){
+                this.edad = edad;
+            }
+
+        Explicaremos de manera mas detallada lo que acabamos de hacer, primero creamos la variable global de forma pribada que se trata de la edad, luego 
+        la llamaremos con nuestro metodo Setter, para ello lo ponemos publico, que no retorne ningun valor y el nombre que se agrega es set y luego lo que
+        deseemos en este caso edad y como parametros le agregamos otra variable relacionada al caso, en este caso edad y luego llamamos a la edad privada
+        con this y la igualamos a la edad del parametro. 
+
+            public int getEdad(){
+                return edad;
+            }
+            
+        Ahora veremos el metodo Getter, este metodo nos devuelve el Setter como lo explicamos anteriormente, para crear este metodo lo ponemos publico y 
+        le agregamos el tipo de dato a mostrar en este caso es un entero, entonces agregamos int, luego agregamos la palabra get y despues un nombre 
+        relacionado, en este caso Edad, no le agregaremos ningun parametro y por ultimo retornamos edad.
+
+        Para poder llamar estos metodos en otro proyecto, lo que hacemos es llamarlo. 
+
+            Clase1 objeto1 = new Clase1();
+
+            objeto1.setEdad(10);
+            System.out.println("La edad es: " + objeto1.getEdad());
+
+        Primero llamamos a la otra hoja, luego agregamos el nombre que le dimos cuando creamos la llamada, en este caso objeto1 luego le agregamos el punto
+        para poder llamar a los metodos y traemos a setEdad y le pasamos el parametro, y para poder visualizar y llamar lo de set agregamos el mismo nombre 
+        objeto1 y con el punto llamamos a getEdad() y de esta manera nos muestra el resultado de set. 
+*/
+
+//Constates
+/*
+    Es lo mismo que una variable, pero con la peculiaridad de que no se puede modificar en ningun momento, su valor se sigue manteniendo.
+
+            private final String nombre; 
+
+        Para poder crear una constante necesitamos primero declarar si sera privada o publica, luego le agregamos la palabra final, despues agregamos el 
+        tipo de dato y por ultimo agregamos el nombre de nuestra constante, pero no es todo para que nuestra constante funcione, necesitamos crear un 
+        constructor.
+
+            public Clase1(String nombre){
+                this.nombre = nombre;
+            }
+
+        Agregamos public luego el nombre del archivo donde estamos que seria clase1 y como parametros agregamos una variable string, luego llamamos a la 
+        constante y la igualamos al parametro, cuando llamemos al cosntructor y le demos el nombre ya quedaria creada nuestra constante. 
+*/
+
+//Miembros estaticos de una clase. 
+/*
+    La funcion estatic permite que si tenemos unas variables y le agregamos static a dichas variables, todas estas tendran el ultimo valor digitado, es 
+    decir, si tenemos 3 variables diferentes y a todas estas le agregamos la palabra static, todas se igualan al ultimo valor digitado. 
+
+        
+
+    Para usar la funcion estatico, necesitamos agregar la palabra reservada static, hay 2 maneras de usar esta funcion, la primera es en un metodo y la 
+    segunda es en un atributo.  
+
+            private static String nombre = "Harold";
+
+    El ejemplo anterior es un atributo estatico, primero agregamos si la variable sera o no publica, luego agregamos la palabra reservada static, luego 
+    agregamos el tipo de dato seguido del nombre y por ultimo podemos darle el valor deseado.
+
+    Ahora veremos el ejemplo con un metodo. 
+
+            public static int sumar (int n1, int n2){
+                int suma = n1 + n2;
+                return suma;
+            }
+        
+    En este ejemplo agregamos un metodo, el cual consiste en agregar si es publico o no, la palabra reservada static, luego el tipo de dato con su respectivo
+    nombre y podemos agregarle parametros, para este ejemplo haremos una suma entonces los paramestros son n1 y n2, luego agregamos otra variable que 
+    contiene la suma de n1 y n2 y luego la muesrta. 
+
+    Ahora veremos como se llaman estos miembros estaticos, para poder llamarlos usaremos el nombre del archivo en este caso seria Clase1 y seguido del nombre
+    le agregamos un punto y traemos lo que queremos mostrar en este caso la suma. 
+
+        System.out.println(Clase1.sumar(3, 4)); 7
+
+    La respuesta de esta suma seria 7.
 */
