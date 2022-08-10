@@ -1,5 +1,12 @@
-let a = [[1,2,3],[4,5,6],[7,8,9]];
-let b = [[1,2,3],[4,5,6],[7,8,9]];
-
-let c = a[0][2] + b[0][2]; 
-console.log(c)
+function a () {
+    console.log("a");
+    function b () {
+        var c = function c( cad ) {
+            return cad.replace(/\s/g, "");
+        }
+        function d() {
+            c("Frase con espacios");
+        }
+    }
+}
+a();
