@@ -602,3 +602,200 @@
 
     La respuesta de esta suma seria 7.
 */
+
+//Herencia 
+/*
+    La forma de reutilizacion de codigo, esto nos ahorraria tiempo 
+
+    Para poder heredar los atributos de una clase a otra realizaremos lo siguiente:
+
+        1. Creamos nuestros atributos ya sea de tipo privado o publico.
+        2. Creamos el constructor y los metodos Get necesarios.
+        3. Nos dirigimos a la clase hija o donde queremos usar los datos.
+        4. En la parte de la clase, seguido del nombre agregamos la palabra reservada (extends) y agregamos el nombre de donde lo queremos traer.
+
+        Clase padre:
+            public class Persona {
+                private String nombre;
+                private String apellido; 
+                private int edad;
+
+                public Persona(String nombre, String apellido, int edad) {
+                    this.nombre = nombre;
+                    this.apellido = apellido;
+                    this.edad = edad;
+                }
+
+                public String getNombre() {
+                    return nombre;
+                }
+
+                public String getApellido() {
+                    return apellido;
+                }
+
+                public int getEdad() {
+                    return edad;
+                }
+            }
+
+        Clase Hija: 
+            public class Estudiante extends Persona{
+                private int codigoEstudiante;
+                private float notaFinal;
+
+                public Estudiante(String nombre, String apellido, int edad, int codigoEstudiante, float notaFinal) {
+                    super(nombre, apellido, edad);
+                    this.codigoEstudiante = codigoEstudiante;
+                    this.notaFinal = notaFinal;
+                }
+
+                public void mostrarDatos(){
+                    System.out.println("Nombre: " + getNombre()
+                                       + "\nApellido: " + getApellido()
+                                       + "\nEdad: " + getEdad()
+                                       + "\nCodigo del estudiante: " + codigoEstudiante
+                                       + "\nNota final: " + notaFinal);
+
+                }
+            }
+
+        Explicaremos mejor este codigo, primero agregamos la clase publica con el respectivo nombre que en este caso es Estudiante, luego realizamos el
+        paso numero 4, tambien podremos agregar mas atributos, en este caso agregamos codigoEstudiante y notaFinal. 
+         
+        Ahora veremos el constructor, en los parametros agregamos todos los datos tanto los que heredamos como los creados en esta clase, como las clases
+        heredadas ya estan inicializadas agregamos la palabra reservada super y como parametros le pasamos los nombres de los atributos heredados, lo demas
+        se agrega con this. 
+        
+        Ahora veremos como podemos mostrar los datos heredados de otra clase, para ello los llamamos con el metodo get creado anteriormente y de esa manera
+        usamos los atributos privados de cada clase. 
+*/
+
+//Clases y metodos final
+/*
+    El uso de la palabra final es para hacer una constante o tambien para que una clase no se pueda heredar, tambien podemos hacer que los metodos solo 
+    tengan un nombre, ahora veremos un ejemplo de cada uno. 
+
+    Para que no se herede mas una clase realizaremos lo siguiente: 
+
+        Creamos la clase, pero al inicio le agregamos la palabra final, de esta manera: 
+            
+            final public class FiguraCerrada()
+
+        De esta manera nos aseguramos de que no se pueda heredar esta clase.
+
+    Ahora veremos como hacer que el nombre de un metodo no se pueda repetir en la herencia.
+
+        Realizamos algo similar al pasado, agregamos el metodo luego agregamos la palabra reservada final, seguido de ello agregamos si el campo es vacio
+        o nos retorna algo y por ultimo agregamos el nombre. 
+
+            public final void dibujar()
+
+    De esta manera si intentamos heredar y la clase tiene la palabra final, nos mostrara un error, tambien si un metodo tiene dicha palabra nos marcara el 
+    error de que ya hay un metodo reservado con dicho nombre, para quitar este error, lo que tenemos es nombrar de otra manera el metodo. 
+*/
+
+//Sobre escritura de miembros:
+/*
+    Esto sirve para cuando queremos hacer un metodo con el mismo nombre en diferentes clases y estas se hereden, nos den el contexto de cada clase y no un
+    contexto general, para ello realizaremos un ejemplo: 
+
+        clase padre
+            Animal
+
+        clase hijas
+            Persona
+            Perro
+
+        
+            public class Persona extends Animal{
+
+                @Override
+                public void comer(){
+                    System.out.println("Estoy comiendo sentado y con cubiertos");
+                }
+            }
+
+        Aqui tenemos la clase Persona y heredamos a Animal, creamos un metodo que se llama comer y le damos a mostrar por pantalla una oracion, pero 
+        crearemos otro metodo para Perro. 
+
+            public class Perro extends Animal{
+
+                @Override
+                public void comer(){
+                    System.out.println("Estoy comiendo con mi platito en el suelo");
+                }
+            }
+
+        Este metodo tambien tiene como nombre comer, para poder diferenciar uno de otro el aplicativo nos dice que tenemos que agregar un comando, este 
+        comando se llama @Override y el programa lo agrega automaticamente, ahora si llamamos a nuestra clase main e imprimimos ello nos tiene que mostrar
+        un resultado diferente.
+
+            public static void main(String [] args){
+
+                    Persona persona = new Persona();
+                    Perro perro = new Perro();
+
+                    persona.comer(); Estoy comiendo sentado y con cubiertos
+                    perro.comer(); Estoy comiendo con mi platito en el suelo
+            }
+
+        Ahora inicializamos a nuestras clases, persona y perro, y cuando llamamos el metodo comer, las respuestas son totalmente diferentes, de esta manera 
+        hacemos una sobre escritura.
+*/
+
+//Clases y metodos Abstractos
+/*
+    Clase abstracta: 
+        - Solo se usa como super clase, por lo que si o si tiene que tener hijos. 
+        - No se pueden crear objetos.
+
+    Lo veremos mejor con un ejemplo. 
+
+    Haremos una app que nos diga como comen las plantas y los animales. 
+
+        1.Crearemos una clase que se llame SerVivo.
+        2.Luego creamos una clase Planta y una clase Animal, estas 2 son herencias de la clase SerVivo. 
+        3.Como si sabemos como se alimentan las plantas, entonces no creamos otro hijo, por lo que quedaria ahi.
+        4.Para los animales si es mas dificil, ya que hay 2 clases los herbivoros y los carnivoros, por lo que Animal seria una clase abstracta y sus 2 
+          hijos serian AnimalCarnivoro y AnimalHerbivoro.
+
+    Ahora lo haremos un poco mas grafico. 
+
+            public abstract class SerVivo {
+                public abstract void alimentarse();
+            }
+         
+        Para crear una clase abstracta agregamos la palabra public y en vez de void agregamos abstract, pero como eso es una clase abstracta, tambien lo 
+        tiene que ser el metodo, por lo que el metodo quedaria de manera publica, se agrega la palabra abstract luego void y por ultimo el nombre, cuando 
+        son metodos abstractos no se puede instanciar, lo que quiere decir que no se puede agregar nada dentro de los corchetes, solo se cierra con un 
+        punto y coma. 
+
+        
+            public abstract class Animal extends SerVivo{
+    
+                @Override
+                public abstract void alimentarse();
+            }
+            
+        Ahora veremos la otra clase abstracta quer seria la clase animal, omitimos la planta debido a que no es una clase abstracta, como podemos observar
+        en el ejemplo anterior, se hace de la misma manera, agregamos public, luego abstract seguido de ello agregamos la clase con su respectivo nombre, 
+        aqui heredamos a la superior que seria SerVivo, y como se esta sobre escribiendo el nombre del metodo, se le agrega el comando visto en la parte 
+        anterior, agregamos public la palabra reservada abstract luego void y el nombre. 
+
+        
+        Ahora veremos como llamamos a esos metodos y poder ver como se alimenta cada ser vivo: 
+
+            public static void main(String [] args){
+                Planta planta = new Planta();
+                AnimalCarnivoro animalC = new AnimalCarnivoro();  
+                AnimalHerbivoro animalH = new AnimalHerbivoro();
+
+                planta.alimentarse(); La planta se alimenta a traves de la fotosintesis
+                animalC.alimentarse(); El animal carnivoro se alimenta de carne
+                animalH.alimentarse(); El animal herbivoro se alimenta de plantas
+            }
+
+        Si intentamos llamar a la clase Animal o a la clase SerVivo aparecera un error debido a que son abstractos, entonces para poder ver los resultados,
+        llamamos a los metodos que no lo son, y el resultado lo podemos ver plasmado. 
+*/
