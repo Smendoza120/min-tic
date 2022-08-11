@@ -799,3 +799,133 @@
         Si intentamos llamar a la clase Animal o a la clase SerVivo aparecera un error debido a que son abstractos, entonces para poder ver los resultados,
         llamamos a los metodos que no lo son, y el resultado lo podemos ver plasmado. 
 */
+
+//Polimorfismo
+/*
+    Son muchas formas que puede tomar un objeto.
+
+    Para entender esto realizaremos un ejemplo: 
+
+        Para este ejemplo tenemos 1 clase padre y 3 clases hijas, la clase padre va a tener 3 argumentos, los cuales son la marca, el modelo y la matricula
+        con la palabra reservada protected, esta palabra permite llamar a los atributos de una manera mas facil, realizamos el respectivo constructor y 
+        tambien los respectivos guetters, y crearemos un metodo para mostrar los datos.
+
+        Ahora nos iremos con las clases hijas que heredaran estos 3 argumentos (modelo, marca, matricula), y en esta clase agregaremos otro atributo, el 
+        cual es el numero de puertas, realizamos el metodo de la herencia, luego agregamos el respectivo constructor incluyendo loas atributos de la herencia
+        tambien agregamos el respectivo metodo getter, seguido de ello crearemos un metodo para mostrar los datos.
+
+        Haremos lo mismo con las siguientes 2 clases, pero una tendra un cilindraje y la otra tendra la capacidad que puede cargar, se realizan los 
+        constructores junto con los metodos getters, tambien se agregaran los metodos para mostrar los datos, como en todas las clases usamos el mismo nombre
+        para mostrar los datos agregamos el comando para sobre escribir los datos.
+
+        Ahora realizaremos el proceso del polimorfismo, nos dirigimos a la clase principal, crearemos una lista de arreglos de nuestra clase padre para 
+        mostrar las diferentes opciones: 
+
+            Vehiculo misVehiculos[] = new Vehiculo[4];
+        
+            misVehiculos[0] = new Vehiculo("GH67", "Ferrari", "A89");
+            misVehiculos[1] = new VehiculoTurismo("78HJ", "Audi", "P14", 4);
+            misVehiculos[2] = new VehiculoDeportivo("45GH", "Toyota", "KJ8", 500);
+            misVehiculos[3] = new VehiculoFurgoneta("JI8", "Toyota", "J9", 2000);
+
+            for (Vehiculo vehiculos : misVehiculos) {
+                System.out.println(vehiculos.mostrarDatos());
+                System.out.println();
+            }
+
+            for (int i =0; i < 4; i++) {
+                System.out.println(misVehiculos[i].mostrarDatos());
+                System.out.println();
+            }
+
+        El primer comando es para crear la lista de arreglos, lo que sigue es para rellenar los campos, para aplicar el polimorfismo, llamamos al nombre 
+        de la lista de arreglos, agregamos la posicion que queremos mostrar los datos, y seguido de ello agregamos la palabra new para crear un nuevo vehiculo
+        y agregamos el nombre de cada clase con los parametros agregados en dichas clases, por ultimo agregamos un bucle for para mostrar los datos, este 
+        es un buble for each, pero con un bucle for tambien funcionaria.
+*/
+
+//Conversión ascendente de tipos (upcasting)
+/*
+    Ir a la gerarquia de clases hacia arriba.
+    Cuando un objeto de la clase hija a un objeto de la clase padre o super clase, para hacer ello, lo veremos en un ejemplo.
+
+            VehiculoTurismo miVehiculo = new VehiculoTurismo("GT67", "Ferrari", "A89", 4);
+
+            Vehiculo vehiculo = miVehiculo;
+
+            System.out.println(vehiculo); Herencia.VehiculoTurismo
+        
+        Primero llamamos a una clase hija, en este caso sera VehiculoTurusmo y le ponemos un nombre miVehiculo, y creamos un nuevo vehiculo y le agregamos 
+        los parametros como su marca, modelo, matricula y el numero de puertas, ahora en la segunda linea llamamos a nuestra clase padre y la nombramos de 
+        otra manera vehiculo, pero en vez de crear un nuevo vehiculo, lo que hacemos es igualarla al nombre de la clase hija, al imprimir la clase padre, 
+        nos informa que se trata de la clase hija. 
+*/
+
+//Conversion decendente de tipos (dowcasting)
+/*
+    Ir a la gerarquia de clases hacia abajo.
+    Ahora convertiremos un objeto de la clase padre a un objeto de la clase hija, pero para ello tenemos que crear primero un (upcasting), entonces tenemos
+    que hacer una convercion implicita, no es como el anterior ejemplo que era directa, para entender mejor este concepto, haremos un ejemplo: 
+
+            Vehiculo vehiculo = new VehiculoDeportivo("GH89", "Audi", "HI9", 500); 
+
+            VehiculoDeportivo nuevoVehiculo = (VehiculoDeportivo) vehiculo;
+
+            System.out.println(nuevoVehiculo); Herencia.VehiculoDeportivo
+
+    La primera linea es una conversion acendente o upcasting, como ya convertimos nuestro metodo padre en un metodo hijo, ahora si podemos hacer el dowcasting
+    para ello llamamos a nuestra clase hija en este caso es VahiculoDeportivo le agregamos un nombre y lo igualamos a un parentesis donde ira el nombre de 
+    la clase hija osea VehiculoDeportivo y seguido del parentesis agregamos el nombre de la clase hija, cuando lo imprimimos nos informara que esa clase 
+    padre es VehiculoDeportivo.
+*/
+
+//Herencia multiple
+/*
+    Una herencia multiple es heredar los atributos y metodos de mas de una super clase, lo que quiere decir que si tenemos una super clase como persona 
+    y esta tiene 2 hijos que son musico y estudiante y creamos otra clase que se llame musicoEstudiante y hereda los atributos y metodos de los 2 hijos de 
+    persona, de esta manera se hace una herencia multiple, pero en java no se puede hacer de una manera directa, por lo que veremos las interfaces, para 
+    lograr este tipo de herencias.
+*/
+
+//Interfaces
+/*
+    -Permite simular la herencia multiple.
+    -La interfaz solo es publica o default. 
+    -Todos sus metodos son abstractos.
+    -Todos sus atributos son final.
+
+    Ahora entenderemos mejor el tema de las interfaces con un ejemplo.
+
+    Para hacer las interfaces, al momento de crear un archivo como clase, la creamos como interfaz, al crearla de esta manera los metodos serian abstractos,
+    entonces seguiremos con el ejemplo anterior, creamos la interfaz Persona, con un metodo llamado hablar, seguido de ello creamos las 2 interfaces hijas,
+    que serian Musico con el metodo tocarMusica y Estudiante con el metodo estudiar, ahora creamos la clase MusicoEstudiante, este si seria una clase y para
+    poder heredar no agregamos la palabra extends en cambio agregamos la palabra implements y agregamos el nombre de nuestras 2 interfaces seria 
+    (Musico, Estudiante), se agrega una coma para agregar la cantidad de interfaces que queremos heredar. 
+
+    En la clase MusicoEstudiante es donde el programa nos pide tener los metodos abstractos y le agregamos el contenido:
+
+            @Override
+            public void hablar(){
+                System.out.println("Estoy hablando español");
+            }
+
+            @Override
+            public void tocarMusica(){
+                System.out.println("Estoy tocando la guitarra");
+            }
+
+            @Override
+            public void estudiar(){
+                System.out.println("Estoy estudiando");
+            }
+
+        Una vez agregado, nos dirigimos a la clase principal, para poder ejecutar nuestros metodos, entonces llamamos a la clase MusicoEstudiante y le ponemos 
+        los parametros, quedaria de la siguiente manera:
+
+            MusicoEstudiante musicoE = new MusicoEstudiante();
+
+            musicoE.hablar();
+            musicoE.estudiar();
+            musicoE.tocarMusica();
+    
+*/
