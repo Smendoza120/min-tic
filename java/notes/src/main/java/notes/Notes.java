@@ -927,5 +927,154 @@
             musicoE.hablar();
             musicoE.estudiar();
             musicoE.tocarMusica();
+*/
+
+//Api
+/*
+    Conjunto de herramientas que estan integradas en el lenguaje, que pueden usarse para crear mejores aplicaciones, tambien solucionan problemas que 
+    haciendo manualmente se demora mas. 
+
+    Si queremos saber mas del tema, podemos buscar en internet api de java y nos aparece la documentacion, con la descripcion de cada caracteristica y uso 
+    de java.
+*/
+
+//Excepciones
+/*
+    Son errores que surgen mientras estamos haciendo un programa, como por ejemplo intentar dividir por 0, acceder a un vector fuera de sus limites, ETC.
+    Cuando ocurren estos errores la maquina virtual o nuestro entorno de trabajo crea un objeto de la clase excepcion. 
+*/
+
+//Jerarquia de excepciones
+/*
+                            Throwable
+                        ________|_________
+                       |                  |
+                    Exception           Error
+               ________|_________
+              |                  |
+         IOException       RunTimeException
+
+    La rama padre de los errores se llama Throwable, de las cuales tiene 2 hijos las cuales son Error y Exception. 
+
+        Error se refiere a los errores de la computadora, entonces son errores que no podemos solucionar.
+
+        Exception tenemos 2 hijas las cuales son IOExeption y RunTimeException. 
+
+            -IOException: Excepciones Verificadas, esto se refiere a cuando creas un programa para que lea un archivo en la computadora, pero resulta que 
+            alguien lo borra por accidente, entonces el programa lo detecta y te informa del error, por lo que te informa que tienes que si o si arreglar
+            el problema. 
+             
+            -RunTimeException: Excepciones no verificadas, este tipo de errores ya son causados por el programador, un ejemplo claro es intentar dividir un numero entre 0, el programa
+             nos dira que es un error, por lo que tenemos que corregirlo, a lo que el el programa tiene a hacer que lo ignores, porque lo que si quieres
+             lo puedes solucionar o tambien puedes optar por no solucionarlo. 
+*/
+
+//Declaracion de las excepciones de un metodo
+/*
+    Cuando hay una excepcion verificada tenemos 2 opciones: 
+        
+        -Declaramos la Exepcion. 
+        -La capturamos con un try catch.
+
+    Para poder declarar esatas excepciones lo que hacemos es lo siguiente: 
+
+            public void leerArchivo() throws FileNotFoundException {
+                File archivo = new File("D:\\prueba\\texto.txt");
+                FileReader fr = new FileReader(archivo);
+            }
+
+            public void leerArchivo2() throws IOException {
+                leerArchivo();
+            }
+         
+        En este ejemplo estamos creando una app que nos lea un archivo y le agregamos la ruta donde esta el archivo que queremos leer, pero nos pasara un 
+        error debido a que el archivo solicitado no esta, entonces para que el metodo no nos aparezca como un error, agregamos la palabra reservada 
+        (throws) y agregamos el tipo de error que posiblemente se encuentre debido a no encontrar el archivo, en el primer ejemplo nos arroja un error de 
+        tipo (FileNotFoundException) y el segundo metodo lo creamos para llamar al primero y este metodo tiene un error de tipo IOException, importamos el 
+        error y ya nuestro programa nos detecta que no tenemos ningun error. 
+*/
+
+//Try catch para expresiones verificadas 
+/*
+    Esto se usa para decirle al programa intenta leer el archivo, pero si no lo encuentras enviale este mensaje al usuario, pero sigue con tu aplicativo 
+    sin que haya una interrupcion, lo veremos mejor en un ejemplo. 
+
+            public void leerArchivo2(){
+                try{ 
+                    leerArchivo();
+                } catch(FileNotFoundException ex){
+                    JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo deseado, por favor verifique la ruta");
+                } catch (IOException e){
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido una excepcion verificada");
+                }
+                System.out.println("Programa terminado");
+            }
+
+        Tenemos este metodo que se llama leerArchivo2 y queremos leer el ejercicio del ejemplo pasado, pero como sabemos que no existe el archivo porque 
+        se elimino entonces implementamos el try catch, en la parte de try agregamos la ruta del metodo que queremos leer, en el catch como parametros
+        le ponemos el nombre del error y seguido de ello le agregamos un nombre cualquiera y abrimos llaves para agregar un mensaje de error y el usuario 
+        sepa que paso algo inesperado en el programa, si hay varios errores lo que hacemos es agregar otro catch con el nombre del error y agregamos otro 
+        nombre, si ejecutamos el programa pasaran 2 cosas, 1 que lea el archivo y nos muestre el contenido del archivo o 2 que nos muestre el mensaje 
+        informandonos del error, por ultimo agregamos otro mensaje en consola si queremos. 
+*/
+
+//Try catch para expresiones no verificadas 
+/*
+    Cuando queremos hacer un try catch a expreciones no verificadas, hacemos exactamnete lo mismo que el ejemplo anterior, para entenderlo mejor lo veremos
+    en un ejemplo: 
+
+            public void operaciones2(){
+                try{
+                  operaciones();
+                }   catch(ArithmeticException a){
+                    JOptionPane.showMessageDialog(null, "Error, ha intentado dividir un numero entre 0");
+                }
+            }
+
+        Creamos este metodo que se llama operaciones2 y agregamos el try para que intente ejecutar operaciones, este metodo tiene como operacion la division
+        de un numero etero entre 0, por lo que en el catch agregamos el nombre del error y agregamos un nombre cualquiera, despues pasamos un mensaje 
+        informando que no se puede dividir un numero entero entre 0, y una vez sale del try catch el programa se sigue ejecutando de manera normal.
+*/
+
+//Uso del throw para excepciones personalizadas
+/*
+    El uso de esta herramienta es para crear excepciones que no tiene incluido el programa, por ejemplo crearemos una aplicacion que nos deje introducir 
+    numeros, pero si introducimos el 0 nos muestra una excepcion, con un mensaje que queramos, para entenderlo mejor haremos un ejemplo: 
+
+            public class Excepcion0 extends Exception{
     
+                public Excepcion0(){
+                    super("Se ha introducido el numero 0");
+                }
+            }
+
+        Creamos una clase que se llama Excepcion0 y como crearemos una excepcion le agregamos la palabra reservada extends, es la misma que usamos para 
+        heredar, pero agregamos la palabra Exception, dentro de ella agregamos un constructor y dentro agregamos un mensaje personalizado dentro de 
+        la funcion super, ahora veremos que pasa si la llamamos e introducimos el 0. 
+
+        
+            public void introducirNumeros() throws Excepcion0{
+                Scanner entrada = new Scanner(System.in);
+
+                do {
+                    System.out.print("Digite un numero: ");
+                    numero = entrada.nextInt();
+
+                    if(numero == 0){ //Quiero que se produzca una excepcion personalizada
+                        throw new Excepcion0();
+                    }
+                } while (numero != 0);
+            }
+
+        En nuestra clase principal, crearemos un metodo que se llama introducirNumeros, agregamos el Scanner para poder solicitar datos en la cosnola, 
+        creamos un bucle do while donde solicitaremos los numeros y mientras numero sea diferente de 0, dentro de nuestro if decimos que si se introduce 
+        el numero 0 nos muestre nuestra excepcion.
+
+        Para mostrar esta excepcion agregamos la palabra reservada (throw) y llamamos a nuestra clase, el programa nos mandara un error y nos dara 2 opciones 
+        la primera opcion es agregar un try catch que fue lo que vimos en la seccion pasada y la segunda opcion es decirle al metodo que puede haber una 
+        excepcion, esta se agrega con otra paralabra reservada (throws), esta palabra se parecida a la que usamos en nuestro if, pero tienen contextos 
+        totalmente diferentes, seguido de ello agregamos el nombre de la excepcion.
+
+        Ahora solo queda imprimir nuestro metodo introducirNumeros en en metodo main y si presionamos el 0, nos mostrara la excepcion y nos motrara la 
+        respectiva ruta. 
 */
