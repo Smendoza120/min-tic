@@ -1078,3 +1078,252 @@
         Ahora solo queda imprimir nuestro metodo introducirNumeros en en metodo main y si presionamos el 0, nos mostrara la excepcion y nos motrara la 
         respectiva ruta. 
 */
+
+//Interfaces graficas
+//Ventanas (JFrame)
+/*
+    Para crear una ventana, primero debemos crear una clase que herede a un metodo que se llama (JFrame), seguido de ello agregamos el constructor, seguido
+    de ello agregamos la palabra this y llamamos a la funcion setSize, nos pedira el ancho y alto, lo cual podemos agregar, quedaria asi: 
+
+            public class Ventana extends JFrame{
+                public Ventana(){
+                    this.setSize(1000, 500);//Establecemos el tamaño de la pantalla
+                }
+            }
+
+        De esta manera se realiza el proceso para crear una ventana, ahora mostraremos el procedimiento junto con un ejemplo para poder llamar y visualizar 
+        la ventana creada: 
+
+            public static void main(String[] args) {
+                Ventana v1 = new Ventana();
+
+                v1.setVisible(true); //Hacemos visible la ventana
+            }
+
+        Estamos en la clase principal y llamamos a nuestra clase ventana, le agregamos un nombre, pero cuando la llamamos le pasamos el siguiente metodo
+        (setVisible(true)), le agregamos true ya que de esta manera la podemos visualizar, de manera nativa esta opcion esta en false.    
+*/
+
+//Finalizar programa con la X y agregar el titulo a la ventana
+/*
+    Veremos como hacer para que el programa deje de ejecutarse siempre y cuando le demos a la X y tambien como agregar un titulo a nuestra ventana.
+            
+            public Ventana(){
+                this.setSize(1000, 500);//Establecemos el tamaño de la pantalla
+                setDefaultCloseOperation(EXIT_ON_CLOSE); //Cuando cierre la ventana, el programa se cierra automaticamente.
+                setTitle("Titulo"); //Agregamos el titulo de la ventana
+            }
+                
+        En nuestra clase de ventana agregamos el metodo (setDefaultCloseOperation) y si leemos la documentacion, como parametro le podemos agregar 
+        diferentes opciones, para que nos finalice la ejecucion al darle a la X es (EXIT_ON_CLOSE).
+        
+        Ahora para agregarle el titulo a nuestra ventana agregamos el metodo (setTitle) y como parametro escribirmos lo que queremos mostrar. 
+*/
+
+//Ubicacion de la ventana
+/*
+    Ahora veremos como ubicar la ventana en algun lado de la pantalla a nuestro gusto, mostraremos el codigo y lo explicaremos: 
+
+            public Ventana(){
+                this.setSize(500, 500);//Establecemos el tamaño de la pantalla
+                setLocation(300, 150); //Establecemos la posicion inicial de la ventana
+                setBounds(300, 150, 500, 500); //Fusion entre setSize y setLocation
+                setLocationRelativeTo(null); // Establecemos la ventana en el centro de la pantalla.
+                setLocation(300, 150); //Establecemos la posicion inicial de la ventana  
+            }
+
+        Con el metodo setLocation, nos pide 2 datos (x, y), en este apartado agregamos las coordenadas de la ventana y cuando ejecutemos el programa esta 
+        aparecera en dicha ubicacion, hay una manera de fusionar el tamaño y la localizacion de la ventana, para ello agregamos el metodo (setBounds), en 
+        esta nos pedira primero las coordenadas de la ventana en la pantalla y luego nos pedira las medidas de ancho y alto de la ventana. 
+        
+        Para hacer que nuestra ventana siempre aparezca en el centro de cualquier pantalla se usa el metodo (setLocationRelativeTo(null)), seagrega null 
+        como parametro y de esta manera la ventana queda centrada, en ese orden de ideas omitiriamos usar setLocation y setBound.
+*/
+
+//Bloquear dimension de la ventana, agregar un color de fondo, establecer un tamaño minimo a la ventana
+/*
+    Para poder bloquear la dimension de la ventana agregamos el siguiente metodo (setResizable(false)), este metodo esta como true por defecto, pero si le
+    agregamos false, el usuario no puede modificar el tamaño de la ventana.
+
+    Para agregar un color de fondo en nuestra ventana, necesitamos agregar el siguiente metodo (this.getContentPane().setBackground(Color.YELLOW)), primero
+    agregamos el metodo this y llamamos a getContentPane, seguido de ello agregamos un punto y llamamos el metodo para agregar el color de fondo el cual 
+    es setBackground y como parametros agregamos la palabra reservada (Color), un punto y agregamos el color deseado.
+
+    Para configurar la ventana para que tenga un tamaño minimo tenemos que agregar el metodo (setMinimumSize(new Dimension(200, 200))), cuando llamamos 
+    este metodo nos pedira un parametro, entonces creamos una dimension y le pasamos el anchoy alto de nuestra pantalla minima, esto sirve para cuando el 
+    usuario pueda modificar el tamaño de la ventana solo tenga un tamaño minimo, el codigo quedaria de la siguiente manera: 
+
+            public Ventana(){
+                setResizable(false); //Bloquear la dimension de la ventana
+                setMinimumSize(new Dimension(200, 200)); //Tamaño minimo de la ventana
+                this.getContentPane().setBackground(Color.YELLOW); //Establecer color de fondo
+            }
+*/
+
+//Creacion de panel
+/*
+    Un panel es lo que estara sobre la ventana y donde podemos agregar todas las funcionalidades, como botones, imagenes, ETC, ahora mostraremos como 
+    crear un panel, ponerlo sobre la ventana y luego darle un color:
+
+            private void iniciarComponentes(){
+                JPanel panel = new JPanel();
+
+                this.getContentPane().add(panel); //Agregamos el panel a la ventana
+                panel.setBackground(Color.pink); // Establecemos el color del panel 
+            }
+
+        Para que quede todo mas organizado creamos un nuevo metodo el cual se llama iniciarComponentes, para poder crear un panel agregamos el siguiente 
+        metodo (JPanel), le agregamos un nombre y creamos un nuevo panel, para agregarlo sobre la ventana agregamos this y con un punto llamamos al 
+        metodo (getContentPane().add(panel), seguido del metodo lo añadimos y como parametro le agregamos el nombre del panel creado, para darle color a 
+        nuetro panel, llamamos al panel con el nombre establecido le ponemos el punto para llamar al metodo y agregamos el metodo del color, lo unico que
+        nos falta es llamar al metodo creado del panel dentro de nuesta ventana y estaria listo el entorno de trabajo. 
+*/
+
+//Creacion de etiquetas
+/*
+    Se pueden agregar 2 tipos de etiquetas, serian los Strings que son etiquetas de texto y la otra son imagenes, en este apartado veremos como ingresar
+    un texto, como modificarlo y moverlo dentro del panel.
+
+            private void iniciarComponentes(){
+                JPanel panel = new JPanel();
+                this.getContentPane().add(panel);
+
+                JLabel etiqueta = new JLabel(); //Creamos una etiqueta
+                etiqueta.setText("Hola mundo"); //Establecemos el texto de la etiqueta
+                panel.setLayout(null); //Desactivamos parametros de ubicacion por defecto
+                etiqueta.setBounds(10, 10, 60, 10);
+                panel.add(etiqueta); //Agregamos la etiqueta al panel   
+            }
+
+        Explicaremos mejor este ejemplo, las 2 primeras lineas es lo mismo que vimos en el ejemplo pasado, primero crearemos una etiqueta de texto, para 
+        ello agregamos el metodo (JLabel) le agregamos un nombre y creamos un nuevo JLabel. 
+
+        Ahora vamos a imprimir el texto dentro de la etiqueta, llamamos al nombre de la etiqueta agregamos el punto y pasamos el metodo (setText), como 
+        parametro agregamos el texto que queremos imprimir. 
+ 
+        Para modificar la ubicacion de nuestro texto necesitamos deshablidar la ubicacion por defecto que tiene el panel, para ello llamamos al panel y le
+        pasamos el parametro (setLayaut) y como parametro le agregamos null, de esta manera nuestro texto se ira a la ubicacion (0, 0).
+         
+        El texto creado lo queremos agregar en una coordenada para que no quede centrado, para ello llamamos a nuestra etiqueta y le agregamos el metodo 
+        setBound, ete metodo ya lo habiamos visto, los parametros son las coordenadas y seguido de ello el tamaño que ocuara el texto, tanto el alto como 
+        el ancho (x, y, width, height).
+
+        Por ultimo nos queda agregar la etiqueta a nuestro panel, ya que si no la agregamos el programa no lo visualizara, para ello llamamos a nuestro 
+        panel y le agregamos el metodo add y como parametro le ponemos la etiqueta.
+*/
+
+//Cambiar el color de letra y el fondo
+/*
+    Para poder cambiar el color de la letra haremos lo siguiente: 
+        
+            private void iniciarComponentes(){
+                etiqueta.setForeground(Color.WHITE); //Color de letras
+                etiqueta.setOpaque(true); // Desactivamos la configuracion por defecto de la etiqueta
+                etiqueta.setBackground(Color.BLACK);
+            }
+
+        En este ejemplo omitiremos lo que vimos anteriormente y solo tendremos en el codigo lo necesario para cambiar el color de la letra y el fondo de 
+        la etiqueta, para cambiar el coor de la letra llamamos a la etiqueta y le pasamos como parametro (setForeground) y como parametro agregamos la 
+        palabra reservada (Color) y le pasamos el color seguido de un punto.
+        
+        Ahora para agregarle color al fondo de la etiqueta primero tenemos que desactivar una opcion que tiene por defecto, esta opcion dice que el color
+        de fondo de las etiquetas es transparente, por lo que llamamos a la etiqueta y llamamos al metodo (setOpaque) y como parametro le agregamos true
+        de esta manera ya solo nos queda ingresar el color de fondo, de la misma manera que lo hicimos con la ventana o con el panel que es llamando a 
+        la etiqueta y como parametro le agregamos (setBackground) y como parametros le agregamos el color. 
+*/
+
+//Cambiar ubicacion del texto
+/*
+    Para cambiar la ubicacion del texto lo podemos hacer de 2 maneras, la primera es dentro del parametro de la creacion del texto o se puede hacer de 
+    manera independiente, veremos las 2 formas de hacerlo:
+
+            JLabel etiqueta = new JLabel("Hola mundo",SwingConstants.CENTER);
+
+        La primera es dentro de nuestra creacion de etiqueta, en los parametros de JLabel, agregamos como primer parametro el texto que queremos mostrar, 
+        de segundo parametro agregamos el siguiente metodo (SwingConstants.CENTER), con este metodo agregamos la direccion donde queremos dejar el texto
+        esta alineacion solo es de manera horizontal, ahora lo veremos de una manera independiente. 
+
+            etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
+
+        De la segunda manera llamamos a nuestra etiqueta y llamamos al metodo (setHorizontalAligment) y como parametro agregamos lo mismo que en la pasada
+        (SwingConstants.CENTER) y de esta manera quedaria centrado de una forma independiente.
+*/
+
+//Modificar la fuente del texto
+/*
+    Para poder modificar el tipo de letra necesitamos llamar a nuestra etiqueta, luego llamamos al metodo (setFont) y como parametro creamos un nuevo Font
+    entro de este Font le agregamos los siguientes parametros (tipo de letra, estilo de letra, tamaño), para el tipo de letra podemos agregar los mismos
+    tipos de letra que tenemos en el aplicativo de (WORD).
+            
+            etiqueta.setFont(new Font("Chiller",Font.ITALIC, 20)); //Establecemos la fuente 
+
+        Podemos establecer el estilo de la letra de 2 maneras, la primera como esta en el ejemplo que llamamos a Font y el metodo seria el tipo de letra 
+        en este caso es cursiva, pero se puede poner en negrilla, ETC. 
+
+            etiqueta.setFont(new Font("Chiller",(0-1-2-3), 20));
+
+        El estilo de fuente se puede modificar de manera numerica y nos evitamos en agregar nuevamente el Font, para ello podemos agregar un numero de 0 a 
+        3, el 0 es letra normal, el 1 es negrilla o BOLD, 2 es cursiva o ITALIC y 3 es negrilla y cursiva. 
+*/
+
+//Etiqueta tipo imagen
+/*
+    Para poder ingresar imagenes necesitamos primero crear una carpeta en la seccion de files o simplemente arrastrar la imagen a la carpeta donde estas 
+    trabajando, luego de ello vamos a crear otro Label, le agregamos el nombre deseado y cuando lo creamos como parametro le agregamos el siguiente metodo
+    (new ImageIcon) y como parametro agregamos la ruta de la imagen, si esta en una carpeta agregamos el nombre de la carpeta, luego un slash y por ultimo
+    el nombre de la imagen con su extencion. 
+
+            JLabel etiqueta2 = new JLabel(new ImageIcon("images/balon.png"));
+            etiqueta2.setBounds(10, 80, 400, 400);
+            panel.add(etiqueta2);
+
+        Haremos el procedimiento con las caracteristicas, aqui podemos ver como esta creado el nuevo Label, luego agregaremos la ubicacion de la imagen con
+        su respectivo tamaño, este tamaño es de la etiqueta mas no es el tamaño de la imagen, por ultimo solo nos queda agregar la etiqueta al panel. 
+*/
+
+//Tamaño de la imagen
+/*
+    Para modificar el tamaño de una imagen tenemos que hacer un proceso algo extenso, pero no es complicado primero mostraremos el ejemplo y explicaremos 
+    el paso a paso.
+
+            etiqueta2.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta2.getWidth(), etiqueta2.getHeight(), Image.SCALE_SMOOTH)));
+
+        Primero llamamos a nuestra etiqueta (etiqueta2), agregamos el metodo (setIcon) y como parametro creamos un icono (new ImageIcon), como 
+        parametro llamamos a la imagen y el parametro seria obtener imagen (getImage), volvemos a llamar otro metodo el cual se usa para escalar nuestra 
+        imagen (getScaledInstance) los parametros son el ancho, alto y el tipo de escalado (width, height, scale), para agregar el escalado tenemos que 
+        llamar al metodo (Image) y tenemos varias opciones para scalar las cuales podemos observar, es recomentable usar un escalado suave.
+
+        Para evitar estar cambiando el ancho y el alto de nuestra seccion de escalado podemos hacer lo siguiente, llamamos la etiqueta que queremos cambiar
+        y le pasamos el metodo getWidth y getHeight, cada uno para su respectivo ancho y alto, de esta manera si modificamos el tamaño de la etiqueta imagen
+        se escala la imagen tambien.
+*/
+
+//Crear un boton
+/*
+    Para crear un boton haremos el mismo proceso que el ejemplo pasado, mostramos el ejemplo y se explica paso a paso: 
+
+            JButton boton1 = new JButton();
+        
+            boton1.setBounds(100, 100, 100, 40); //Posicion del boton y tamaño
+            boton1.setText("Click"); //Establecemos un texto al boton
+            boton1.setEnabled(true); //habilitar o deshabilitar botones
+            boton1.setMnemonic('a'); //Establecemos alt + letra
+
+            panel.add(boton1);
+
+        Primero creamos el boton, para crearlo agregamos el metodo (JButton), le ponemos un nombre (boton1) y se crea el boton (new JButton).
+
+        Tenemos que crear la posicion de nuestro boton junto con el tamaño deseado, para esto llamamos al boton y le pasamos el parametro (setBounds), le 
+        pasamos los parametros y quedaria posicionado. 
+
+        Podemos agregarle texto a nuestro boton, llamamos al boton y le pasamos el parametro (setText) y agregamos el texto deseado.
+
+        Si queremos deshabilitar el boton para que no puedan usarlo, vamos a llamar a nuestro boton y le pasamos el metodo (setEnabled) y el parametro es 
+        false, para activarlo nuevamente lo pasamos a true. 
+
+        Para hacer click al boton sin hacer uso del mouse si no con un comando del teclado usaremos el siguiente metodo, llamamos al boton y le agregamos 
+        el metodo (setMnemonic) y atretamos la letra dentro de comillas simples. 
+
+        Por ultimo solo nos queda importar nuestro boton en el panel, para ello llamamos al panel y lo añadimos (panel.add(boton1)) lo que nos queda es 
+        ejecutar la app y quedaria todo listo para usar.
+*/
