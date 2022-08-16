@@ -1327,3 +1327,179 @@
         Por ultimo solo nos queda importar nuestro boton en el panel, para ello llamamos al panel y lo añadimos (panel.add(boton1)) lo que nos queda es 
         ejecutar la app y quedaria todo listo para usar.
 */
+
+//Fuente y color de la letra de un boton.
+/*
+    Para agregarle color a la letra de un boton, tenemos que llamar al boton, seguido de ello le pasamos el metodo (setForeground) y agregamos el color
+    deseado, quedaria de la siguiente manera: 
+
+            boton1.setForeground(Color.BLUE);
+
+    Para modificar la fuente del texto llamamos a nuestro boton, le pasamos el metodo (setFont) y creamos un nuevo font, le pasamos los parametros al nuevo 
+    font como el tipo de letra, el grosor y el tamaño y de esta manera quedaria modificado el tamaño de nuestra letra del boton 
+            
+             boton1.setFont(new Font("cooper black", Font.BOLD, 20));
+*/
+
+//Color de fondo y ingreso de imagenes a un boton
+/*
+    Para agregar el color de fondo en un boton, lo que tenemos que hacer es llamar a nuestro boton, para este ejemplo creamos otro boton con el nombre 
+    (boton2)y pasarle el metodo (setBackground), como parametros le agregamos el color, quedaria de la siguiente manera: 
+
+            boton2.setBackground(Color.blue);
+
+    Ahora veremos como agregar una imagen al boton, para agregar una imagen llamamos al metodo (ImageIcon) le agregamos un nombre y terminamos de crear el 
+    metodo.
+
+    Ahora para poder ingresaruna imagen realizamos el siguiente paso a paso: 
+
+        -llamamos a nuestro boton y le pasamos el metodo (setIcon).
+        -llamamos a ImageIcon y los parametros son el nombre del metodo anterior y le pasamos el metodo (getImage).
+        -Agregamos el metodo para escalar el cual es (getScaledInstance) y le pasamos los parametros los cuales son el (ancho, alto, tipo de escalado)
+        -tambien lo podemos ajustar al tamaño de nuestro boton, llamano a nuestro boton y agregando el metodo getWidth y getHeight
+
+            boton2.setIcon(new ImageIcon(clickAqui.getImage().getScaledInstance(boton2.getWidth(), boton2.getHeight(), Image.SCALE_SMOOTH)));
+*/
+
+//Borde de un boton
+/*
+    Para la creacion de bordes, lo mostraremos con otro boton, entonces el nombre de este es (boton3), primero mostraremos el ejemplo y luego lo explicamos 
+            
+            boton3.setBorder(BorderFactory.createLineBorder(Color.GREEN, 4, true));
+
+        -Primero llamamos a nuestro boton.
+        -Luego le pasamos el metodo (setBorder) y agregamos la extencion.
+        -Llamamos a la clase (BorderFactory) y se le pasa el metodo (createLineBorder).
+        -Existen 3 metodos para crear bordes, lo que cambia entre uno y otro es el tipo de parametros, el primero solo tiene el parametro de color, el 
+        segundo tiene el parametro de color y ancho del borde, el ultimo tiene color, ancho y si quiere la puntas redondeadas o no. 
+*/
+
+//Radio botones o boton de opciones
+/*
+    Le damos un listado al usuario con opciones y el usuario escoge la opcion deseada. 
+
+    Para crear este tipo de botones lo que tenemos que hacer es llamar a la clase (JRadioButton), le agregamos un nombre y terminamos de crear la clase, le 
+    podemos pasar parametros, tambien si queremos que la casilla este o no marcada, quedaria de la siguiente manera: 
+
+            JRadioButton radioBoton1 = new JRadioButton("Opcion 1", true);
+
+    Para posicionar estos radio botones, son de la misma manera que lo vimos en los ejemplos pasados, podemos usar varias cosas vistas anteriormente como 
+    modificar las letras, agregar un texto por separado para no agregarlo en los parametros de la creacion de la clase.
+
+    Podemos deshabilitar una de las opciones con el siguiente metodo, llamamos al boton y llamamos al metodo (setEnabled)si se agrega true, el boton puede 
+    ser usado, pero si agregamos false el boton se pone en color gris y no se permite usar. 
+
+    Como ya vimos la creacion de los radio botones, ahora veremos como hacer un conjunto de radio botones, esto nos sirve para cuando tenemos mas opciones
+    y marcamos una de ellas, las otras automaticamente se desmarcaran, para ello llamamos una clase (ButtonGroup), le agregamos un nombre y solo nos queda
+    terminar de llamar la clase.
+     
+    Para agruparlos solo basta con llamar a nuestra clase creada y añadimos la lista de botones, quedaria de esta manera: 
+
+            ButtonGroup grupoRadioBotones = new ButtonGroup();
+            grupoRadioBotones.add(radioBoton1);
+            grupoRadioBotones.add(radioBoton2);
+            grupoRadioBotones.add(radioBoton3);
+*/
+
+//Botones de activacion
+/*
+    Este tipo de botones se usan para dejar marcada una opcion y si le damos click nuevamente esta opcion se desmarca, se hace de una manera similar a la 
+    leccion anterior.
+
+    Para crear estos botones lo que necesitamos es llamar a la siguiente clase (JToggleButton) le pasamos un nombre, como parametro le podemos agregar un 
+    texto, si le agregamos un true el boton quedara seleccionado de manera automatica, quedaria de la siguiente manera: 
+
+            JToggleButton botonActivacion1 = new JToggleButton("Opcion 1", true);       
+            botonActivacion1.setBounds(50, 100, 100, 40);
+            panel.add(botonActivacion1);
+
+    Tambien agregamos el posicionamiento de nuestro boton y lo agregamos al panel, ahora veremos como hacer para que todos los bonotes no se puedan oprimir 
+    para ello agregamos una clase llamada (ButtonGroup) y le agregamos un nombre, una vez terminada la clase, llamamos a esa clase con el nombre que le 
+    dimos y añadimos los botones creados: 
+
+            ButtonGroup grupoBotonesActivacion = new ButtonGroup();
+            grupoBotonesActivacion.add(botonActivacion1);
+            grupoBotonesActivacion.add(botonActivacion2);
+            grupoBotonesActivacion.add(botonActivacion3);
+*/
+
+//Crear una caja de texto
+/*
+    Las cajas de texto se usan para cuando hacemos formularios y se le pide una informacion a la persona, para crear una caja de texto se usa la siguiente 
+    clase (JTextField), seguido de ello le agregamos un nombre y terminamos de crear la clase, no le pasamos ningun parametro.
+
+    La ubicamos de la misma manera y tambien podemos añadir un texto predeterminado a la caja con el siguiente metodo (setText), solo nos falta añadir la
+    caja al panel y quedaria de la siguiente manera: 
+
+            JTextField cajaTexto = new JTextField();
+            cajaTexto.setBounds(50, 50, 100, 30);
+            cajaTexto.setText("Hola...");
+            panel.add(cajaTexto);
+*/
+
+//Crear areas de texto
+/*
+    Para crear un area de texto usaremos la clase llamada (JTextArea) le agregamos un nombre, aqui tambien tenemos que cuadrar la ubicacion de nuestra aera
+    y tambien el tamaño de nuestra aera, podemos escribir un texto por defecto con el metodo (setText), otro metodo util es este (append), este nos sirve 
+    para poder agregar mas texto sin reemplazar el que ya escribimos inicialmente, podemos bloquear el area de texto para que no sea modificado con este 
+    metodo (setEditable), si le pasamos como parametro false, ya no se puede modificar, pero si el programa lo deja en true por defecto para poder hacer 
+    uso de esta area de texto, lo que nos queda es añadirlo al panel y quedaria de la siguiente manera: 
+
+            JTextArea areaTexto = new JTextArea();
+            areaTexto.setBounds(20, 20, 300, 200);
+            areaTexto.setText("Hola");
+            areaTexto.append("\nEscribe por aqui");//Añade mas texto al area
+            areaTexto.setEditable(true);//Permitir o no edutar el contenido
+            panel.add(areaTexto);
+*/
+
+//Barras de desplazamiento para el area de texto.
+/*
+    Estas barras de desplazamiento son para el area de texto, estas se usan para cuando un usuario agrega mucho texto y se desborda de nuestra aera, nos 
+    agregue una barra de desplazamiento y nos permita visualizar todo el contenido escrito, para ello necetamos llamar a una clase (JScrollPane), la 
+    agregamos un nombre y terminar de crear la clase, en el parametro escribimos a que le queremos agregar las barras, seguido de ello tenemos que agregar
+    la misma area y ubicacion del area de texto, para finalizar agregarmos la barra al panel, quedaria asi: 
+
+            JScrollPane barrasDesplazamiento = new JScrollPane(areaTexto);
+            barrasDesplazamiento.setBounds(20, 20, 300, 200);
+            JScrollBar ScrollPaneConstants;
+            panel.add(barrasDesplazamiento);
+*/
+
+//Crear casillas de verificacion
+/*
+    Para crear las casillas de verificacion llamamos a la clase (JCheckBox), le agregamos un nombre y despues terminamos de crear la clase, como parametros 
+    le agregamos el contenido que tendra y luego si queremos que este marcado o no, con true o false, luego agregamos la posicion de nuestro check box y 
+    por ultimo lo agregamos al panel quedaria de la siguiente manera: 
+
+            JCheckBox casillaVerificacion1 = new JCheckBox("Leche", true);
+            casillaVerificacion1.setBounds(20, 20, 100, 40);
+            panel.add(casillaVerificacion1);
+*/
+
+//Crear listas desplegables
+/*
+    Para crear una lista desplegable, llamaremos a la clase (JComboBox), pero antes de crearla necesitamos un arreglo de objetos, para este ejemplo 
+    crearemos una lista de paises: 
+
+            String paises[] = {"Peru", "Colombia", "Paraguay", "Ecuador"};
+
+    Una vez tenemos nuestro arreglo de objetos, agregamos el nombre de la lista dentro de los parametros de nuestra clase [JComboBox), solo nos queda 
+    agregar la ubicacion de nuestra y añadirlo: 
+
+            JComboBox listaDesplegable = new JComboBox(paises);
+            listaDesplegable.setBounds(20, 20, 100, 30);
+            panel.add(listaDesplegable);
+
+    Hay unos metodos usados con frecuencia los cuales son los siguientes: 
+
+            listaDesplegable.addItem("Mexico"); //Agregar mas datos.
+            listaDesplegable.setSelectedItem("Ecuador"); //Seleccionar el primer objeto
+
+    El primero nos ayuda a agregar otro dato a nuestro arreglo de objetos, solo se llama a la clase con el nombre que le pusimos y el usamos el metodo 
+    (addItem) y como parametro agregamos el texto que queremos agregar.
+
+    El segundo nos ayuda a establecer el dato a mostrar antes de usar la lista, entonces llamamos a la clase y le pasamos el metodo (setSelectedItem) en el 
+    cual podemos agregar el nombre que queremos mostrar siempre y cuando este en el arreglo o tambien podemos llamar al arreglo y poner la posicion que 
+    queremos mostrar. 
+*/
