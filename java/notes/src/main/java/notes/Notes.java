@@ -1503,3 +1503,327 @@
     cual podemos agregar el nombre que queremos mostrar siempre y cuando este en el arreglo o tambien podemos llamar al arreglo y poner la posicion que 
     queremos mostrar. 
 */
+
+//Usar modelos dentro de las listas desplegables.
+/*
+    Para explicar mejor esta parte primero compartire el codigo y lo explicare paso a paso: 
+
+            Persona persona1 = new Persona("Harold Sanchez", 24, "Colombiano");
+            Persona persona2 = new Persona("Tania Bustamante", 20, "Argentina");
+
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+            JComboBox listaDesplegable = new JComboBox(modelo);
+
+            modelo.addElement(persona1);
+            modelo.addElement(persona2);
+
+            listaDesplegable.setBounds(20, 20, 200, 30);
+            panel.add(listaDesplegable);
+
+        Para este ejemplo explicaremos como se creo todo:
+
+        -Traemos a la clase (JcomboBox) y le agregamos un nombre. 
+        -Luego llamamos otra clase que se llama (DefaultComboBoxModel) y tambien le agregamos un nombre, esta clase se incorpora dentro de la clase 
+        anterior, entonces el parametro de (JcomboBox) es (modelo).
+        -Agregamos la ubicacion de nuestra lista desplegable.
+        -Añadimos la lista al panel. 
+        -Para este ejemplo crearemos una clase que se llama (Persona) en la cual tiene como parametros (nombre, edad, nacionalidad), agregamos el 
+        constructor y los setters y getters.
+        -Vamos al archivo principal y creamos 2 personas con sus respectivos datos.
+        -Por ultimo llamamos al modelo y añadimos las personas con el metodo (addElement).
+        -De esta manera queda importado, pero no nos mostrara los datos si no agregamos una clase toString en la clase persona, una ves agregado ya nos 
+        muestra los datos.
+*/
+
+//Crear campo de contraseña
+/*
+    Para crear un campo de contraseña necesitamos la clase (JPasswordField) le agregamos un nombre, una vez finalizado podemos agregarle como parametro 
+    una contraseña por defecto, tambien tenemos que agregar las coordenadas de nuestro cuadro de texto y añadirlo al panel:
+
+            JPasswordField campoContraseña = new JPasswordField();
+            campoContraseña.setText("Programacion");
+            campoContraseña.setBounds(20, 20, 150, 30);
+            panel.add(campoContraseña);
+
+    Para poder visualizar la contraseña necesitamos hacer otro proceso, primero creamos un String vacio, seguido de ello hacemos un bucle for para recorrer
+    nuestro arreglo de String y hacemos una suma iterativa con la contraseña, pasandole el metodo para mostrar contraseña y con el arreglo iterativo, por 
+    ultimo solo nos queda imprimir, quedaria de la siguiente manera: 
+
+            String contraseña = "";
+            for(int i=0; i<campoContraseña.getPassword().length;i++){
+                contraseña += campoContraseña.getPassword()[i];
+            }
+            System.out.println("Contraseña: " + contraseña);
+*/
+
+//Crear tablas
+/*
+    Para entender esta parte primero agregaremos el ejemplo y explicaremos paso a paso que se hizo. 
+
+            DefaultTableModel modelo = new DefaultTableModel();
+        
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Edad");
+            modelo.addColumn("Nacionalidad");
+
+            String persona1[] = {"Alejandro", "21", "Peruano"};
+            String persona2[] = {"Rosa", "22", "Mexicana"};
+            String persona3[] = {"Harold", "24", "Colombiano"};
+
+            modelo.addRow(persona1);
+            modelo.addRow(persona2);
+            modelo.addRow(persona3);     
+
+            JTable tabla = new JTable(modelo);
+            tabla.setBounds(20, 20, 300, 200);
+            panel.add(tabla);
+
+            JScrollPane scroll = new JScrollPane(tabla);
+            scroll.setBounds(20, 20, 300, 200);
+            panel.add(scroll);
+
+        -Llamamos a la clase (JTable), en la cual le agregaremos un nombre, seguido de ello agregamos la ubicacion y la añadimos al panel.
+        -Llamamos a la clase (DefaultTableModel) con su respectivo nombre, a la clase (JTable) le pasamos como parametro a modelo, debido a que a partir 
+        de modelo crearemos las filas y las columnas.
+        -Para rellenar nuestra tabla primero llamamos las columnas, traemos al modelo y le pasamos el metodo (addColumn) y agregamos los enunciados.
+        -Para rellenar las filas primero creamos unos arreglos con los parametros que pusimos en las columnas y los añadimos con el metodo (addRow).
+        -Para poder visualizar nuestra tabla tenemos que crear un scroll, para ello llamamos a la clase (JScrollPane) le damos un nombre, le pasamos el 
+        parametro de tabla y agregamos la ubicacion que es la misma que la tabla y la añadimos al panel.
+*/
+
+//Crear listas
+/*
+    Haremos lo mismo que el ejemplo pasado, pondremos primero el ejemplo y explicaremos paso a paso lo que realizamos: 
+
+            DefaultListModel modelo = new DefaultListModel();
+        
+            modelo.addElement(new Persona("Harold Sanchez", 24, "Colombiano"));
+            modelo.addElement(new Persona("Maria Paula", 22, "Colombiana"));
+            modelo.addElement(new Persona("Cristian Moreno", 23, "Mexicano"));
+
+            JList lista = new JList(modelo);
+            lista.setBounds(20, 20, 200, 300);
+            panel.add(lista);
+
+            JScrollPane scroll = new JScrollPane(lista);
+            scroll.setBounds(20, 20, 200, 300);
+            panel.add(scroll);
+
+        -Llamamos a nuestra clase (JList) para crear la lista con su respectivo nombre, luego agregamos la ubicacion y la añadimos a nuestro panel.
+        -Llamamos a otra clase que se llama (DefaultListModel) con su respectivo nombre. 
+        -A la clase (JList) nos falto agregar el parametro, el cual se le agrega el nombre de (DefaultListModel).
+        -Para empezar a agregar datos a la lista llamamos al modelo y le pasamos el parametro (addElement), como parametro agregamos la clase persona 
+        que ya habiamos creado anteriormente con los datos (nombre, edad, nacionalidad).
+        -Por ultimo crearemos el Scroll y quedaria nuesta lista.
+*/
+
+//Eventos - Oyente de accion
+/*
+    Los eventos se usan para programar una accion determinada, para entender esta parte lo haremos con un boton, vamos a compartir el ejemplo y lo 
+    explicamos.
+
+            ActionListener oyenteDeAccion = new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    saludo.setText("Hola " + cajaTexto.getText());
+                }
+            };
+            boton.addActionListener(oyenteDeAccion);
+
+        -Primero llamamos a nuestro boton y le pasamos el siguiente metodo (addActionListener).
+        -Luego llamamos a una clase que se llama (ActionListener), le agregamos un nombre y al terminar de crear la clase nos aparecera un error, el 
+        aplicativo nos dira que tenemos que ingresar unas acciones extra.
+        -El aplicativo agregara una clase anonima, esta clase se encarga de hacer la funcion del boton el nombre es(actionPerformed) y como parametro 
+        tiene (ActionEvent ae).
+        -En esta clase anonima llamamos a saludo y le pasamos el metodo (setText) dentro agregamos lo que queremos mostrar, en el ejemplo imprimimos un 
+        mensaje y concatenamos lo que tiene dentro la caja de texto.
+*/
+
+//Eventos - Oyente de raton
+/*
+    Los eventos de raton, son los eventos como hacer click dentro y fuera de un lugar, entrar o salir del lugar, lo veremos con mas profundidad y como 
+    lo podemos implementar, primero compartire el ejemplo y luego dare la explicacion.
+
+            MouseListener oyenteDeRaton = new MouseListener() {
+            
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    areaTexto.append("mouseClicked\n"); //Presionar y soltar
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    areaTexto.append("mousePressed\n"); //Presionar
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    areaTexto.append("mouseReleased\n"); //Presiono y suelto afuera
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    areaTexto.append("mouseEntered\n"); //Dentro del area
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    areaTexto.append("mouseExited\n"); //Fuera del area
+                }
+            };
+            boton.addMouseListener(oyenteDeRaton);
+
+        -Llamamos el lugar para usar la accion del mouse, en este caso es el boton, luego le pasamos el metodo (addMouseListener).
+        -Como es una interface llamamos a la clase (MouseListener) y le agregamos un nombre, al finalizar la clase el aplicativo nos mostrara un error, por
+        lo que tenemos que importar la extencion.
+        -El programa nos agrega todos los metodos que tiene el mouse, dentro de cada evento agregamos la accion que queremos realizar, para este ejemplo 
+        solo queremos mostrar que hace cada accion. 
+        -Por ultimo nos queda agregar el parametro al metodo (addMouseListener) el metodo que le agregamos es de la clase creada.
+*/
+
+//Diferentes metodos de los eventos de raton
+/*
+    Cuando hacemos click podemos agregar metodos para hacer varias cosas, mostraremos el ejemplo y lo explicaremos:
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.isAltDown()){
+                    areaTexto.append("Alt\n");
+                } else if(e.isControlDown()){
+                    areaTexto.append("CTL\n");
+                } else if(e.isShiftDown()){
+                    areaTexto.append("Shift\n");
+                } else if(e.isMetaDown()){
+                    areaTexto.append("Click derecho\n");
+                } else {
+                    areaTexto.append("Click izquierdo\n");
+                }
+                
+                if(e.getClickCount() == 2){
+                    areaTexto.append("Doble Click\n");
+                }
+            }
+
+        Este ejemplo es parte del ejercicio pasado.
+        -En los parametros hay dos textos uno que dice (MouseEvent) y el otro es una (e), aqui haremos una condicional y llamaremos al segundo parametro.
+        -Llamamos a la (e) y agregamos el metodo (isAltDown) este quiere decir que si hacemos click junto con Alt este imprimira Alt.
+        -Con (isControlDown) nos imprimira CTL si le damos a CTL junto al click.
+        -Con (isShiftDown) nos imprimira Shift si le damos a Shidt junto con el click.
+        -Con (isMetaDown) nos imprimira que dimos click derecho si hicimos click con el boton derecho.
+        -La segundo condicional llama a (e) le pasa el metodo (getClickCount) y lo iguala a 2, quiere decir que si hacemos 2 clicks nos imprimira Doble Click.   
+*/
+
+//Oyente del movimiento del raton
+/*
+    Este tipo de oyente son 2 tipos de acciones, uno es cuando movemos el mouse y el siguiente es cuando tenemos precionado el click izquierdo y movemos 
+    el mouse, veremos el codigo para entenderlo mejor:
+
+            private void eventoDeMovimientoRaton(){
+                MouseMotionListener oyenteMovimientoRaton = new MouseMotionListener() {
+
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        areaTexto.append("mouseDragged\n");//Mover el mouse con el click mantenido
+                    }
+
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                        areaTexto.append("mouseMoved\n");//Mover el mouse sin uso del click
+                    }
+                };
+                panel.addMouseMotionListener(oyenteMovimientoRaton);
+            }
+
+        Para este ejemplo queremos que si movemos el mouse dentro de del panel ya empiece a contar las acciones, por eso llamaremos al panel para hacer 
+        este ejemplo. 
+
+        -Llamamos al panel y le pasamos el metodo (addMouseMotionListener).
+        -Luego llamamos a la clase (MouseMotionListener) y le agregamos un nombre, cuando terminemos de crear la clase nos arrojada un error, por lo que 
+        el programa nos desplegara los 2 metodos que tiene esta clase.
+        -El primero metodo es para cuando movemos el raton con el click mantenido. 
+        -El segundo metodo es para cuando moevemos el raton sin hacer uso del click.
+        -Por ultimo agregamos el nombre de la clase dentro del parametro de (addMouseMotionListener) de esta manera hacemos uso del movimiento del raton.
+*/
+
+//Eventos - Oyente de la rueda del raton
+/*
+    Este tipo de eventos es para saber si hemos girado el raton, pero tambien mostraremos si giramos hacia arriba o hacia abajo, compartiremos el ejemplo
+    y lo explicaremos paso a paso. 
+
+            private void eventoRuedaDelRaton(){
+                MouseWheelListener ruedaRaton = new MouseWheelListener() {
+
+                    @Override
+                    public void mouseWheelMoved(MouseWheelEvent e) {
+                        if(e.getPreciseWheelRotation() == -1){
+                            areaTexto.append("Rueda hacia arriba\n");
+                        }   else if(e.getPreciseWheelRotation() == 1){
+                            areaTexto.append("Rueda hacia abajo\n");
+                        }
+                    }
+
+                };
+                panel.addMouseWheelListener(ruedaRaton);
+            }
+
+        Este ejemplo tambien se hizo dentro del panel.
+        -Llamamos al panel y agregamos el metodo (addMouseWheelListener).
+        -Luego llamamos a la clase (MouseWheelListener) y le agregamos un nombre, al finalizar la clase nos mostrara un error, por lo que el programa nos
+        arrojara el metodo de esta clase, de esta manera ya solo nos queda imprimir un texto, pero mostraremos otro metodo para indicar si esta moviendo 
+        la rueda del rato hacia abajo o hacia arriba.
+        -Para ello tomamos el segundo parametro de la clase la cual es (e) y le pasamos el metodo (getOreciseWheelRotation) y la igualamos a -1, de esta 
+        manera la rueda va para arriba.
+        -Para saber si esta girando hacia abajo, hacemos el mismo proceso, llamamos al segundo parametro de la clase y le pasamos el mismo metodo pero lo 
+        igualamos a 1 y de esta manera nos dira que la rueda esta siendo girada para abajo.
+        -Solo queda ingresar el nombre de la clase dentro del metodo creado inicialmente (addMouseWheelListener).
+*/
+
+//Eventos - Teclado
+/*
+    Estos eventos se usan para darle funcionalidades a las teclas, primero compartire el ejemplo y se explicada paso a paso: 
+
+            KeyListener eventoTeclado = new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    areaTexto.append("keyTyped\n"); //Cuando presionamos una tecla diferente de a-z y 0-9
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    areaTexto.append("keyPressed\n"); //Presionamos una tecla
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    areaTexto.append("keyReleased\n"); //Presionar y soltar
+                }
+            };
+
+            cajaTexto.addKeyListener(eventoTeclado);
+
+        -Primero llamamos a caja de texto ya que es donde aplicaremos estos eventos y le pasamos el metodo (addKeyListener).
+        -Luego llamamos a la clase (KeyListener) le agregamos un nombre y finalizamos la creacion de la clase, una vez creada esta clase nos arroja un error
+        como en ejemplos pasados, le damos al error y nos agrega los metodos de la clase, los cuales son 3.
+        -El primer metodo es (keyTyped) este se acciona cuando presionamos las teclas entre los rangos (a-z y 0-9), las otras teclas especiales no las toma 
+        en cuenta.
+        -El segundo metodo es (keyPressed) este metodo se acciona cuando presionamos cualquier tecla.
+        -El tercer metodo es (keyRelased) este metodo se acciona cuando presionamos y soltamos una tecla.
+        -Por ultimo agregamos el nombre de la clase dentro del metodo (addKeyListener).
+
+        Mostrare otro ejemplo el cual es un metodo para el segundo parametro de nuestra clase.
+
+                if(e.getKeyChar() == 'p'){
+                   areaTexto.append("Letra P\n");
+                }
+                if(e.getKeyChar() == '\n'){
+                    areaTexto.append("Enter\n");
+                }
+                if(e.getKeyChar() == ' '){
+                    areaTexto.append("Espacio\n");
+                }
+
+        En este ejemplo pusimos unas condicionales, las cuales les da una funcion distinta a cada tecla y lo que hace es llamar al segundo parametro y le 
+        agregamos el metodo (getKeyChar) y la igualamos a la letra p, esto quiere decir que cuando presionemos dicha letra hara una accion especifica pasa, 
+        lo mismo con los otros if.
+        
+*/
