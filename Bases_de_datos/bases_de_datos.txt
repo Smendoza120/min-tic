@@ -1,0 +1,47 @@
+//Bases de datos en MySQL
+/*
+    -Conceptos de bases de datos
+    -Descargar e instalar MySQL
+    -Creacion de una base de datos
+    -Conceptos de relaciones entre tablas
+    -Relacion de uno a uno
+    -Relacion de uno a muchos
+    -Relacion de muchos a muchos
+    -Insertar registros en las tablas
+    -Modificar registros de una tabla
+    -Eliminar registros de una tabla
+    -Consultas en una tabla
+    -Consultas más avanzadas con operadores
+    -Consultas en varias tablas
+    -Vistas
+    -Procedimientos almacenados
+    -Triggers
+*/
+
+//Bases de datos
+/*
+    Es un almacen que nos permite guardar grandes cantidad de informacion de forma organizada, para luego la podamos 
+    encontrarlos y utilizar facilmente, funciona como un repositorio.
+
+    Modelos de bases de datos:
+
+    -Bases de datos Jerárquicas
+    -Bases de datos de red
+    -Bases de datos transaccionales
+    -Bases de datos relacionales (Modelo que veremos)
+    -Bases de datos multidimensionales
+    -Bases de datos orientadas a objetos
+    -Bases de datos documentales
+    -Bases de datos deductivas
+
+    Gestores de bases de datos:
+
+    -MySQL (Gestor a utilizar)
+    -Microsoft SQL Server
+    -Oracle
+    -Microsoft Access
+    -PostgreSQL
+    -DB2
+
+    
+*/
