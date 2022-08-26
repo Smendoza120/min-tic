@@ -2170,3 +2170,171 @@
     manera nos estaria imprimiendo la primera fila de nuestro texto, pero necesitamos mostrar todo, entonces creamos un bucle while y le decimos que 
     mientras cadena sea diferente de vacio nos imprima la cadena, ya solo queda agregamor a la clase main y ejecutamos.
 */
+
+//Archivos binarios
+/*
+    Con estos archivos, podemos guardar datos encriptados por lo que se guarda en formato de bytes, podemos guardar cualquier cosa de esta manera.
+
+        -Primero llamamos a la clase (FileOutputStream), le agregamos un nombre, la instanciamos y le pasamos un parametro el cual es el nombre del archivo
+        que crearemos junto con su extencion, puede ser de manera relativa o absoluta.
+        -Nos arrojara un error, por lo cual lo importaremos y tambien agregamos el respectivo (try catch).
+        -Luego llamamos a la clase (ObjectOutputStream), le agregamos un nombre y la instanciamos, como parametro le agregamos el nombre de la primera 
+        clase creada, tambien le creamos el respectivo (try catch) ya que nos arroja un error.
+
+            try {
+                FileOutputStream archivo = new FileOutputStream("personas.bin");
+                ObjectOutputStream escritura = new ObjectOutputStream(archivo);
+            } catch (FileNotFoundException ex) {
+                System.err.println("Error, " + ex);
+            } catch (IOException ex) {
+                System.err.println("Error, " + ex);
+            }
+
+        -Creamos otro archivo donde contendra los datos de la persona, los cuales son el nombre y la edad, le creamos el respectivo constructor.
+        -Para poder almacenar los datos como bytes, tenemos que agregale algo a la clase es como una extencion la cual se llama (implements Serializable)
+        -agregamos las respectivas variables las cuales son nombre y edad para este ejemplo.
+
+            public class Persona implements Serializable{
+                private String nombre;
+                private int edad;
+
+                public Persona(String nombre, int edad) {
+                    this.nombre = nombre;
+                    this.edad = edad;
+                }
+            }
+
+        -Para poder ingresar los datos, tenemos que llamar a la clase creada la cual es la persona, con sus respectivos datos, le agregamos una nueva 
+        persona, para este ejemplo creamos 3 personas. 
+        -Llamamos a la clase (ObjectOutputStream) y le pasamos el metodo (writeObject), esta clase tiene muchos metodos de escritura, tenemos que saber
+        cual metodo se ajusta mas a lo que queremos hacer, y como parametro le pasamos el nombre de las personas.
+        -Cerramos la clase.
+
+            private void excribirBinario(){
+                try {
+                    FileOutputStream archivo = new FileOutputStream("personas.bin");
+                    ObjectOutputStream escritura = new ObjectOutputStream(archivo);
+
+                    Persona persona1 = new Persona("Harol", 24);
+                    Persona persona2 = new Persona("Maria", 22);
+                    Persona persona3 = new Persona("Juan", 25);
+
+                    //Escribimos objetos sobre el archivo binario
+                    escritura.writeObject(persona1);
+                    escritura.writeObject(persona2);
+                    escritura.writeObject(persona3);
+
+                    escritura.close();//cerramos el archivo.
+
+                } catch (FileNotFoundException ex) {
+                    System.err.println("Error, " + ex);
+                } catch (IOException ex) {
+                    System.err.println("Error, " + ex);
+                }
+            }
+
+        -Para agregar lo que hicimos a nuestra clase main y todo funcione correctamente, tenemos que llamar a la clase raiz, la cual es el nombre del 
+        archivo, le agregamos un nombre y la instanciamos.
+        -Agregamos el nombre de la clase que llamamos y le pasamos la clase donde se encuentra la escritura.
+
+            public static void main(String[] args) {
+                ArchivosBinarios archivos = new ArchivosBinarios();
+                archivos.excribirBinario();
+            }
+*/
+
+//Lectura de un archivo binario
+/*
+    Para la lectura de un archivo binario, se hace un metodo similar a lo que explicamos anteriormente, pero en vez de output, lo que agregamos es input
+    
+
+        -Primero llamamos a la clase (FileInputStream), le agregamos un nombre y lo instanciamos, como parametro le agregamos el nombre del archivo que 
+        deseamos leer, luego le agregamos el (try catch).
+        -Llamamos a una segunda clase la cual es (ObjectOutputStream) le agregamos un nombre y lo instanciamos, el parametro que le agregamos es el 
+        nombre de la clase que creamos anteriormente y le agregamos el (try catch)
+
+            private void leerBinario(){
+                try {
+                    FileInputStream archivo = new FileInputStream("personas.bin");
+                    ObjectInputStream lectura = new ObjectInputStream(archivo);
+
+                } catch(EOFException ex){
+                    return;// Finalizo de leer todo el archivo binario
+                } catch (FileNotFoundException ex) {
+                    System.err.println("Error, " + ex);
+                } catch (IOException ex) {
+                    System.err.println("Error, " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("Error, " + ex);
+                }    
+
+            }
+
+        -Tenemos que crear un archivo donde nos muestre los datos, entonces creamos una clase y le imprimimos por consola el nombre y edad.
+        -Luego nos dirigimos al archivo de la lectura, llamaremos a la clase de personas y le agregamos un nombre.
+        -Hacemos un bucle infinito con un while, en el cual le agregamos el nombre de la clase personas y la igualamos al nombre de la clase 
+        (ObjectInputStream) y le agregamos el parametro (readObject), hay muchos metodos similares para cada caso en especifico.
+        -Nos arrojara un error porque nos pedira importar un (try catch), cuando lo importamos, tambien nos arrojara un error, por lo que tenemos que 
+        convertirlo a la clase persona.
+        -Volvemos a llamar a la clase (ObjectInputStream) y como parametro le agregamos la clase creada en persona la cual es (mostrarDatos).
+        -Para que el bucle pueda terminar en algun momento, lo que hacemos es agregar un (catch) y como parametro le agregamos (EOFException ex) y 
+        agregamos return.
+
+            private void leerBinario(){
+                Persona objetoPersona;
+
+                try {
+                    FileInputStream archivo = new FileInputStream("personas.bin");
+                    ObjectInputStream lectura = new ObjectInputStream(archivo);
+
+                    while(true){ //recorremos el archivo binario
+                        objetoPersona = (Persona) lectura.readObject();
+                        objetoPersona.mostrarDatos();
+                    }
+
+                } catch(EOFException ex){
+                    return;// Finalizo de leer todo el archivo binario
+                } catch (FileNotFoundException ex) {
+                    System.err.println("Error, " + ex);
+                } catch (IOException ex) {
+                    System.err.println("Error, " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("Error, " + ex);
+                }    
+            }
+*/
+
+//Añadir contenido a un archivo binario
+/*
+    Para añadir contenido es similar a la creacion de un archivo binario, tenemos que modificar unas cosas.
+        
+        -Primero modificamos el parametro de la primera clase, le agregamos un true.
+        
+            FileOutputStream archivo = new FileOutputStream("personas.bin", true);
+
+        -Luego creamos otra clase, le agregamos un nombre y le decimos que herede de la clase (ObjectInputStream).
+        -Agregamos los respectivos constructores, y añadimos una nueva clase (writeStreamHeader) y le agregamos el metodo (reset), lo que hace este 
+        metodo es resetear la cabecera que agrega la clase (ObjectInputStream).
+
+
+            public class AñadirContenido extends ObjectOutputStream{
+
+                public AñadirContenido(OutputStream out) throws IOException {
+                    super(out);
+                }
+
+                public AñadirContenido() throws IOException, SecurityException {
+                }
+
+                @Override
+                public void writeStreamHeader() throws IOException{
+                    reset();
+                }
+            }
+
+        -Nos dirigimos nuevamente a la clase para crear mas contenido en el archivo y llamamos a la clase creada, le agregamos un nombre y la 
+        instanciamos, como parametro le agregamos la primera clase.
+        -Solo nos falta crear mas datos, los cuales son el nombre y edad de la persona, lo añadimos a la clase principal y todo quedaria perfecto.
+
+            AñadirContenido escritura = new AñadirContenido(archivo);
+*/
