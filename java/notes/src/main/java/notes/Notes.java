@@ -1824,6 +1824,349 @@
 
         En este ejemplo pusimos unas condicionales, las cuales les da una funcion distinta a cada tecla y lo que hace es llamar al segundo parametro y le 
         agregamos el metodo (getKeyChar) y la igualamos a la letra p, esto quiere decir que cuando presionemos dicha letra hara una accion especifica pasa, 
-        lo mismo con los otros if.
+        lo mismo con los otros if.     
+*/
+
+//Diseños(Layout)
+/*
+    Es un gestor de diseño, que se usa por defecto por los objetos JPanel, si usamos la propiedad (FlowLayout), la interfaz nos quedara ordenada en forma 
+    de fila, para poder lograr esto, seleccionamos el panel, click derecho, set Layout y ahi seleccionamos la propiedad FlowLayout.
+    
+    Para los demas layauts se hacen de la misma manera pero cada uno tiene una funcionalidad diferente:
+
+        -FlowLayout: Nos ordela los elementos del panel de manera horizontal.
+        -BoxLayout: Nos permite ordenar los elementos de manera horizontal o vertical, dependiendo lo que queramos hacer.
+        -BorderLayout: Agregar un diseño al borde la cual se separa en 5 partes (superior, inferior, izquierda, derecha y centro).
+        -GridLayout: Con esta propiedad podemos decirle cuantas filas y columnas queremos usar en nuestro aplicativo, nosotros modificamos cuantas filas y
+        columnas queremos que tenga nuestro GridLayout.
+        -GridBagLayout: Esta propiedad nos da mas flexibilidad a la hora de editar las dimensiones de todo lo que agregmos en nuestro panel, solo tenemos
+        que modificar atributos como ancho, altura, margenes, ETC. 
+*/
+
+//Barras de menu
+//Creacion
+/*
+    Para crear una barra de menu, creamos un archivo (JFrame), hay un apartado que dice (Swing menus), en esta parte podemos crear una barra de menu, primero 
+    insertamos la que dice (menu bar), y ahi empezamos a agregar botones con sus respectivas funcionalidades, tambien podemos agregar iconos, cambiar el 
+    tamaño de la letra, colores, ETC. 
+*/
+
+//Sub menu y componentes
+/*
+    Los submenus, son menus dentro de otro menu, para poder realizarlo arrastramos la opcion de (menu) y la agregamos, para ponerle los otros elementos 
+    arrastramos la opcion de (menu item).
+
+    Para crear un radio boton dentro de un menu lo que hacemos es arrastrar l aopcion que dice (menuItem - RadioButton) y para agruparlos y que se 
+    desmarquen los demas, lo que hacemos es irnos al apartado de (Swing controls) y arrastramos la opcion (Button group), nos dirigimos al codigo y en el 
+    constructor de la ventana llamamos al grupo de botones y añadimos la lista de radio botones.
+
+    Para crear un check box dentro de un menu, nos vamor al apartado (Swing menus) y arrastramos la opcion que dice (Menu item - CheckBox) y quedaria 
+    agregado nuestro check box.
+*/
+
+//Menu desplegable (JPopupMenu)
+/*
+    Este tipo de menus se usan practicamente en todos los programas, son los menus que salen cuando damos un click derecho y nos despliega mas opciones 
+    para poder hacerlo primero agregamos un panel sin incluir el menu creado anteriormente, luego nos dirigimos al apartado (Swing menus), seleccionamos 
+    la opcion que dice (popup menu) y la arrastramos dentro de nuestro menu, pero tenemos que hacer unas cositas mas debido a que aun no esta implementado 
+    dentro del panel.
+
+    Nos dirigimos al panel y le agregamos un evento, este evento esta en mouse y se llama (MouseReleased), le decimos que si presionamos el click derecho 
+    nos agregue el menu desplegable dentro del panel: 
+
+            private void panelMouseReleased(java.awt.event.MouseEvent evt) {                                    
+                if(evt.isPopupTrigger()){
+                    menuDesplegable.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+            } 
+
+        Llamamos al menu desplegable y le damos el parametro (show) y le agregamos los parametros que es la ventana que queremos mostrar y las coordenadas, 
+        como queremos que nos salga exactamente en donde hicimos click, por esta razon agregamos estos metodos.
+*/
+
+//Estilos de ventana (LookAndFeel)
+/*
+    Para incorporar los estilos de una ventana, nos dirigimos a nuestro codigo de la ventana, y nos dirigimos al apartado del main, agregamos las iniciales
+    (UIM) y el programa lo auto completa y le pasamos el parametro (setLookAndFeel), nos dirigimos a la seccion (javax.swing.plaf), hay varios los cuales
+    podemos usar, copiamos el nombre que queremos usar y lo pegamos en el parametro de (setLookAndFeel) y seguido de ello agregamos un punto y pegamos la 
+    ruta del estilo, quedaria de la siguiente manera: 
+
+            try {
+                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            } catch (ClassNotFoundException ex) {
+                //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedLookAndFeelException ex) {
+                //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        Al agregar el (UIManager), el aplicativo nos mandara un error, el cual importaremos los try catch, como solo queremos cambiar la apariencia de la 
+        ventana, podemos comentar todos los catch.
+*/
+
+//Importar estilos de ventana (LookAndFeel)
+/*
+    Para importar una libreria de estilos a nuestro netbeans y poder usarlo, nos dirigimos a una pagina llamada (JTatto), descargamos la libreria y los
+    importamos en los archivos de nuestro proyecto, mas especificiamente en (Libraries) y para usarlos es de la misma manera que el ejemplo anterior, para
+    que nos funcione a la perfeccion nuestro estilo de ventana lo dejamos antes de agregar el comando para modificar los estilos de la ventana.
+*/
+
+//Crear ventanas secundarias (JDialog)
+/*
+    Para crear una ventana secundaria le damos click derecho a nuestro proyecto y creamos un archivo (JDialog), haremos un ejemplo, crearemos una ventana 
+    principal con un boton y cuando lo presionemos nos aparece la ventana secundaria:
+
+        -Primero creamos nuestra ventana principal (JFrame), le agregamos un boton.
+        -Dentro del codigo de nuestro boton, lo que haremos es llamar al constructor de la ventana secundaria.
+        -Como parametros nos pedira 2 cosas, la primera es la ubicacion de nuestra ventana secundaria y la segunda es si podemos o no manipular nuestra 
+        ventana principal mientras tenemos la ventana secundaria abierta (true) no la podemos manipular y (false) si la podemos manipular.
+        -Cuando llamamos al constructor le pusimos un nombre, entonces para poder mostrar la ventana correctamente, llamamos a nuestro constructor y le 
+        pasamos el parametro (setVisible) y le agregamos true.
+
+    Ya explicamos como crear una ventana y como la podemos mostrar en pantalla, pero ahora vamos a agregarle un boton a la ventana secundaria, donde 
+    tendra un boton que dira salir y cuando lo presionemos se cierra la ventana secundaria.
+
+        -Agregamos el boton y nos dirigimos dentro del codigo del boton.
+        -Solo agregamos la funcion (dispose), de esta manera la ventana se cerrara cuando presionemos el boton.
+*/
+
+//Mostrar datos en un arbol jerárquico (JTree)
+/*
+    Es un arbol de muestra todo el contenido que tenemos en un carpeta, por ejemplo la carpeta de proyectos, para entender mejor esto, lo explicaremos paso
+    a paso:
+
+        -Primero crearemos nuestra ventana (JFrame), en la caja de componentes en la seccion de (Swing Controls).
+        -Seleccionamos la que dice (Tree) y la arrastramos a nuestra ventana.
+        -Para modificar el contenido, seleccionamos el componenten en la ventana y nos dirigimos al apartado (model) y agregamos el nombre de nuestro 
+        codigo, donde tenemos nuestros datos. 
+
+    Ya explicamos como agregar nuestro arbol y tambien como modificarlos, pero ahora veremos como crear el constructor y agregar nuestros contenidos.
+
+        -Nos dirigimos a la parte de nuestro codigo, en la parte superior llamamos a la clase (DefaultTreeModel) le agregamos un nombre y lo instanciamos.
+        -Esta clase necesita un parametro especial, para ello necesitamos llamar a otra clase la cual es (DefaultMutableTreeNode), donde le ponemos un 
+        nombre, la instanciamos y como parametro le agregamos el nombre que queremos mostrar como contenido.
+        -Agregmamos el nombre de la clase (DefaultMutableTreeNode) dentro del parametro de la clase (DefaultTreeModel), de esta manera agregamos el primer
+        contenido de nuestro arbol.
+
+            DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Raiz");
+            DefaultTreeModel modeloTree = new DefaultTreeModel(raiz);
+    
+    Para agregar mas datos a nuestro arbol necesitamos crear una clase, y la agregamos al constructor de nuestra ventana antes de iniciar los componentes
+    (initComponents) ya que si lo agregamos despues se produce un error.
         
+        -Agregamos nuestra clase con un nombre deseado, dentro de esta clase agregamos una clase que ya habiamos visto la cual es (DefaultMutableTreeNode).
+        -Cambiamos el nombre y el parametro de esta clase y ya solo quedaria llamar a la primera clase y añadimos los datos, quedaria de esta manera:
+
+
+            private void cargarDatosModeloTree(){
+                DefaultMutableTreeNode colores = new DefaultMutableTreeNode("Colores");
+                DefaultMutableTreeNode colorRojo = new DefaultMutableTreeNode("Rojo");
+                DefaultMutableTreeNode colorAzul = new DefaultMutableTreeNode("Azul");
+                colores.add(colorAzul);
+                colores.add(colorRojo);
+
+                DefaultMutableTreeNode deportes = new DefaultMutableTreeNode("Deportes");
+                DefaultMutableTreeNode futbol = new DefaultMutableTreeNode("Futbol");
+                DefaultMutableTreeNode baloncesto = new DefaultMutableTreeNode("Baloncesto");
+                deportes.add(futbol);
+                deportes.add(baloncesto);
+
+                raiz.add(colores);
+                raiz.add(deportes);
+            }
+
+        En este codigo mostramos como agregar datos a nuestro arbol.
+*/
+
+//Eventos en el arbol (JTree)
+/*
+    Para agregarle eventos a nuestro arbol haremos los siguientes pasos:
+    
+        -Selecionamos el arbol y en la parte de los comando nos dirigimos a (code) y modificamos la casilla de que dice (post-init-code) y llamamos al 
+        arbol y le pasamos el metodo (getSelectionModel), luego le pasamos otro metodo (addTreeSelectionListener).
+        -Luego llamamos a la clase (TreeSelectionListener), le agregamos un nombre y lo instanciamos.
+        -Dentro de esa clase agregamos la siguiente clase (valueChanged), al agregarlo nos carga con los parametros, se le agrega el (@Override), debido 
+        a que se esta haciendo una sobrecarga.
+        -En la clase creada agregamos la siguiente clase (DefaultMutableTreeNode), le agregamos un nombre y la instanciamos sin parametros.
+        -Agregamos una clase que vamos a crear mas adelante, lo ultimo que hacemos es agregarle el nombre de la clase (TreeSelectionListener) al parametro
+        de (addTreeSelectionListener).
+
+            TreeSelectionListener oyenteTree = new TreeSelectionListener(){
+                @Override
+                public void valueChanged(TreeSelectionEvent e){
+                    DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) arbol.getLastSelectedPathComponent();
+                    eventosNodoSeleccionado(nodoSeleccionado);
+                }
+            };
+
+            arbol.getSelectionModel().addTreeSelectionListener(oyenteTree);
+
+        De esta manera ya tenemos la funcion de hacer algo con cada contenido, ahora haremos que nos muestre una imagen a un costado deacuerdo a cada 
+        contenido:
+
+        -Vamos a crear nuestra clase la cual habiamos agregado en el ejemplo anterior (eventosNodoSeleccionado) y como parametros le agregamos 
+        (efaultMutableTreeNode) y (nodoSeleccionado).
+        -Hacemos una condicional la cual dice que si seleccionamos rojo, nos muestre una imagen en rojo, asi sucesivamente hasta ocupar todas las opciones.
+
+            private void eventosNodoSeleccionado(DefaultMutableTreeNode nodoSeleccionado){
+                if(nodoSeleccionado.toString().equals("Rojo")){
+                    etiquetaImagen.setIcon(new ImageIcon(getClass().getResource("/images/rojo.jpg")));
+                } else if(nodoSeleccionado.toString().equals("Azul")){
+                    etiquetaImagen.setIcon(new ImageIcon(getClass().getResource("/images/azul.png")));
+                } else if(nodoSeleccionado.toString().equals("Futsal")){
+                    etiquetaImagen.setIcon(new ImageIcon(getClass().getResource("/images/futsal.jpg")));
+                } else if(nodoSeleccionado.toString().equals("Futbol Completo")){
+                    etiquetaImagen.setIcon(new ImageIcon(getClass().getResource("/images/futbol.jpg")));
+                } else if(nodoSeleccionado.toString().equals("Baloncesto")){
+                    etiquetaImagen.setIcon(new ImageIcon(getClass().getResource("/images/baloncesto.jpg")));
+                } 
+            }
+
+        De esta manera terminamos nuestra funcionalidad en el arbol.
+*/
+
+//Esto es una nuava unidad (Archivos)
+// contenido
+/*
+    En este apartado veremos los siguientes temas: 
+
+        -Teoria de archivos
+        -La clase file
+        -Crear un archivo o directorio
+        -Escritura sobre un archivo de texto
+        -Lectura de un archivo de texto
+        -Ejercicio1 - Crear una agenda de contactos
+        -Escritura sobre un archivo binario
+        -Añadir contenido a un archivo binario
+        -Ejercicio2 - inscripciones a una competencia de atletismo
+*/
+
+//Archivos
+/*
+    Es una forma en la cual podemos hacer que nuestros datos esten accesibles, hay 2 tipos de archivos, los cuales son archivos de texto y archivos 
+    binarios.
+
+        -Archivos de texto: Se pueden abrir con cualquier editor de texto y lo puedes leer sin dificultad, porque todo esta ahi. 
+        -Archivos binarios: Contienen informacion codificada en binario, con el proposito de almacenar y procesar en ordenadores, es una manera de oculatar
+        informacion, ya que solo estan diseñados para que lo lean las computadoras.
+*/
+
+//Clase file
+/*
+    La clase file es util para recuperar informacion sobre un archivo o directorio, para usar esta clase lo que haremos es llamarla, le agregamos un nombre
+    y la instanciamos, esta nos pedira un parametro el cual es la ruta del archivo que queremos examinar, tenemos 2 tipos de formas para buscar archivos, 
+    la primera es con la ruta relativa y la segunda es la ruta absoluta.
+
+            File archivo = new File("C:\\Users\\sanch\\OneDrive\\Documentos\\NetBeansProjects\\ClaseFile\\prueba.txt"); 
+            File archivo = new File("CarpetaPrueba"); //Ruta relativa: tiene que estar dentro del proyecto 
+
+        -La ruta absoluta es la que tiene todo el enlace donde se encuentra nuestro archivo, entonces lo que haremos es agregar dicha direccion, de esta 
+        manera podemos leer archivos que estan fuera de la carpeta del proyecto.
+        -La ruta relativa solo es agregar el nombre del archivo que queremos revisar, el problema de usar este tipo de rutas, es que el archivo tiene que 
+        estar dentro de la carpeta del proyecto.
+
+    Esta clase tiene sus diferentes constructores y metodos para poder usarlos de una manera adecuada.
+*/
+
+//Crear un archivo o directorio
+/*
+    Para crear un archivo o un directorio, tenemos que llamar a la clase que vimos anteriormente (File) le agregamos un nombre y la instanciamos con el 
+    nombre que le queremos poner a nuestro archivo, seguido de ello agregamos una condicional y como parametro le agregamos el nombre de nuestra clase con 
+    el metodo (createNewFile), nos arroja un error, pero solo tenemos que importar el (try catch), dentro de cada parametro agregamos una descripcion 
+    para ver que el programa se este ejecutando con normalidad. 
+
+            File archivo = new File("C:\\Users\\sanch\\OneDrive\\Documentos\\NetBeansProjects\\ArchivosDeTexto12\\prueba.txt");
+        
+            try {
+                if(archivo.createNewFile()){
+                    System.out.println("El archivo se ha creado correctamente");
+                }
+            } catch (IOException ex) {
+                System.err.println("No se pudo crear el archivo " + ex);
+            }
+
+    Ahora veremos como crear una carpeta, tenemos que seguir los mismos pasos, lo unico que cambia es el metodo que le agregamos a la clase creada la cual 
+    es (mkdir), este metodo no tiene ningun error, por lo que podemos seguir simplemente con nuestra condicional, quedaria de la siguiente manera: 
+
+            File archivo = new File("carpetaPrueba");
+        
+            if(archivo.mkdir()){
+                System.out.println("Se ha creado el directorio correctamente");
+            } else {
+                System.err.println("Error, no se ha podido crear el directorio");
+            }
+
+    Para incorporar la creacion de las carpetas, nos dirigimos a nuestra clase main, dentro de ella llamamos a la clase (ArchivosDeTexto), le agregamos un 
+    nombre y la instanciamos, esta clase no tiene un metodo obligatorio, por lo que llamamos a nuestra clase y como metodo le agregamos los metodos creados
+    para añadir la carpeta y el archivo, quedaria de la siguiente manera: 
+            
+            ArchivosDeTexto archivos = new ArchivosDeTexto();
+        
+            archivos.crearArchivo();
+            archivos.crearDirectorio();
+*/
+
+//Escritura sobre un archivo de texto
+/*
+    Para escribir dentro de un archivo de texto llamamos a la clase (FileWriter), le agregamos un nombre y la instanciamos, como parametro nos pedira a 
+    donde queremos añadir el archivo, por lo que le pasamos como parametro el nombre de la primera clase que creamos (File), el programa nos arrojara un 
+    error, este error nos pide que agreguemos un (try catch), una vez agregado, llamamos a la clase (FileWriter) y le pasamos el metodo (write) y como 
+    parametro le agregamos el texto deseado, si queremos agregar mas texto, solo tenemos que llamar nuevamente a la clase y pasarle el parametro (write)
+    haciendo el respectivo salto de linea (\n), si no realiza el salto de linea, lo que tenemos que ahcer es agregar un retorno (\r) y de esta manera 
+    quedaria el codigo: 
+
+            try {
+                FileWriter escribir = new FileWriter(archivo);
+                escribir.write("Hola que tal?");
+                escribir.write("\r\nMas texto");
+                escribir.close();
+            } catch (IOException ex) {
+                System.err.println("Error, no se pudo escribir sobre el archivo");
+            }
+
+    El problema de hacerlo de esta manera, es que si queremos agregar mas texto reemplazando lo que tenemos, el programa sobre escribira lo que ya se 
+    habia agregado, para ello solo tenemos que agregar un parametro mas a la clase el cual es un booleando, si le pasamos true, el texto agregado no se 
+    reemplazara, pero si agregamos false quedara como estaba antes, el codigo quedaria de la siguiente manera: 
+
+            try {
+                FileWriter escribir = new FileWriter(archivo, true);
+                escribir.write("\r\nMucho mas texto");
+                escribir.write("\r\nAhora mas");
+                escribir.close();
+            } catch (IOException ex) {
+                System.err.println("Error, no se pudo escribir sobre el archivo");
+            }
+*/
+
+//Lectura de un archivo de texto
+/*
+    Para poder leer un archivo lo que hacemos es llamar una clase (FileReader), le agregamos un nombre y como parametro le agregamos el archivo el cual es 
+    el nombre de la primera clase creada, el aplicativo nos arrojara un error por lo que tenemos que agregarle un (try catch), seguido de ello llamamos 
+    otra clase (BufferedReader) le agregamos un nombre y la instanciamos, como parametro le agregamos el nombre de la clase (FileReader), el aplicativo nos
+    arrojara un error, nos dira que tenemos que agregar un (try catch), cuando se anidan estos (try catch) lo que podemos hacer es borrar el try y la parte
+    del catch la agregamos despues del primer catch, quedaria de la siguiente manera: 
+
+            String cadena;
+        
+            try {
+                FileReader lector = new FileReader(archivo);
+                BufferedReader lectura = new BufferedReader(lector);
+                cadena = lectura.readLine();
+                while(cadena != null){
+                    System.out.println(cadena);
+                    cadena = lectura.readLine();
+                } 
+            } catch (FileNotFoundException ex) {
+                System.err.println("Error, " + ex);
+            } catch (IOException ex) {
+                System.err.println("Error, " + ex);
+            }
+
+    De esta manera quedaria el codigo, pero queda una cosa por explicar y es como imprimimos el texto que tenemos en el archivo, para ello necesitamos 
+    crear una variable, esta variable la igualamos al nombre de la segunda clase creada (BufferedReader) y le pasamos el parametro (readLine), de esta 
+    manera nos estaria imprimiendo la primera fila de nuestro texto, pero necesitamos mostrar todo, entonces creamos un bucle while y le decimos que 
+    mientras cadena sea diferente de vacio nos imprima la cadena, ya solo queda agregamor a la clase main y ejecutamos.
 */
