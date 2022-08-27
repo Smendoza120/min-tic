@@ -42,6 +42,138 @@
     -Microsoft Access
     -PostgreSQL
     -DB2
+*/
 
+//Creacion y eliminacion de una base de datos
+/*
+    Para la creacion de una base de datos tenemos que hacer lo siguiente: 
+
+        -Escribimos el siguiente comando (create database), se le agrega el nombre deseado.
+        -Para decirle al programa que usaremos la base de datos creada usamos el comando (use) y se le agrega el nombre 
+        de nuestra base de datos.
+        -Para eliminar una base de datos, lo hacemos con el siguiente codigo (drop) le agregamos el tipo de dato que 
+        eliminaremos y le agregamos el nombre.  
+*/
+
+//Creacion de tablas
+/*
+    Para crear una tabla tenemos 2 formas de hacerlo, las cuales son las siguientes: 
+
+    Primera forma: 
+        -Agregamos el comando (create table) le agregamos el nombre y abrimos parentesis y finalizamos con punto y coma
+        -Para agregar datos, lo haremos dentro de los parentesis, similar a como llenamos un objeto, con la diferencia 
+        que tiene otra sintaxis, primero va el nombre, luego el tipo de dato, si sera una casilla de obligacion para 
+        llenar o no, un dato extra que se refiere a un ejemplo de como se deberia llenar ese campo, y un extra que es
+        lo que hara ese comando, si quiere sumar automaticamente o restar.
+
+            create table producto(
+                idProducto int auto_increment primary key,
+                nombre varchar(50) not null,
+                precio decimal(10,2) not null,
+                fecha_venta date default '0000-00-00'
+            );
+
+        -Cuando agregamos un dato de tipo cadena, agregamos (varchar) y agregamos unos parentesis, donde indicaremos el 
+        numero de caracteres que tendra.
+        -Si tenemos un dato que no es entero agregamos la palabra (decimal) y en los parentesis podemos agregar 2 datos, 
+        los cuales son el numero de datos que tendremos como enteros y con una coma le damos la cantidad de decimales que 
+        tendra dicha casilla.
+        -Para una fecha usamos la palabra (date) y como default agregamos una visual para llenar este campo.
+
+
+        -Si vamos a mostrar la tabla usamos el comando (show talbes) y nos mostrara las tablas que hemos creado.
+        -Para mostrar el contenido de la tabla usamos el comando (show columns from) y agregamos el nombre de nuestra tabla.
+        -Para eliminarla usamos el mismo comando visto el cual es (drop table) y agregamos el nombre de la tabla.
+
+            show tables;  Mostrar tabla.
+            
+            show columns from producto; Mostrar las columnas de la tabla.
+
+            drop table producto;  Eliminar tabla.
+
+    Segunda forma:
+        -Nos dirigimos al arbol donde tenemos los datos, dentro de nuestra base de datos, nos dirigimos a la seccion tabla.
+        -Le damos click derecho y crear tabla, nos desplegara otro menu, donde llenaremos todos los datos que ya vimos.
+        -Para mostrar la tabla haremos lo mismo que vimos hace un momento.
+*/
+
+//Relaciones entre tablas
+/*
+    Si queremos que los datos de nuestras tablas se puedan seleccionar, encontrar y procesar de una manera rapida, es 
+    necesario que las tablas no se encuentren aisladas unas de otras.
+
+    Para relacionar las tablas usaremos las columnas pueden tener un nombre diferente pero para que haya una relacion tienen
+    que ser del mismo tipo de datos.
+
+    Hay 3 tipos de relaciones:
+        -Relacion de uno a uno
+        -Relacion de uno a muchos
+        -Relacion de muchos a muchos
+
+    Relacion de uno a uno:
+        Estas se dan cuando un registro esta relacionado con otro y con ese solamente y a su vez este segundo tambien estara
+        relacionado solamente con el primero.
+
+                                        Relacion uno a uno
+                                Galletas                Codigo barras
+                            idProducto                  Codigo_Barras
+                            nombre VARCHAR(50)          idCodigo INT
+                            precio DECIMAL(10,2)        serial VARCHAR (30)
+                            fecha_venta DATE            idProducto INT
     
+        En este ejemplo podemos ver como tenemos una relacion de uno a uno, lo que los une es el (idProducto)
+
+    Relacion uno a muchos:
+        Este estara relacionado solo con otro, pero este segundo podria estar relacionado con mas de uno.
+
+                                        Relacion uno a muchos
+                                Galletas                   Categoria   
+                            idProducto                  idCategoria INT
+                            nombre VARCHAR(50)          nombre VARCHAR (30)
+                            precio DECIMAL(10,2)        
+                            fecha_venta DATE 
+                            idCategoria INT      
+
+        Lo que refleja este ejemplo es que solo tenemos una categoria y esta categoria podria ir a muchos mas productos.  
+
+    Relacion de muchos a muchos:
+        En las relaciones muchos a muchos a cada registro de la tabla A, se le pueden asociar varios registros de la tabla B,
+        y cada registro de la tabla B pueden estar relacionado con mas de un registro de la tabla A.   
+
+                                        Relacion muchos a muchos
+                            Producto                  Union                 Proveedor
+                        idProducto                 idUnion INT             idProveedor
+                        nombre VARCHAR(50)         idProducto INT          nombre VARCHAR(30)
+                        precio DECIMAL(10,2)       idProveedor INT     
+                        fecha_venta DATE  
+
+        Para tener una relacion de muchos a muchos, lo hacemos con un intermediario, donde se uniran varias tablas, el ejemplo
+        se lee de la siguiente manera, 1 producto lo pueden traer muchos proveedores, y un proveedor puede tener muchos 
+        productos y la tabla union, hace como un puentre entre una tabla y otra.                          
+*/
+
+//Insertar registros en las tablas
+/*
+    Para poder ingresar registros en las tablas se puede hacer de 3 maneras: 
+
+        Primera manera:
+        -usamos la palabra (insert) luego (into) ingresamos el nombre de la tabla que queremos modificar, le agregamos la 
+        palabra (values) y como parametros le agregamos los datos, el primero se agrega como nulo ya que tiene un contador
+        este se lo agregamos cuando creamos la tabla.
+
+            insert into categoria values (null, 'Bebidas');
+
+        Segunda manera:
+        -Usamos la palabra (insert) y (into) luego el nombre de la tabla seguido de ello agregamos un parentesis con el nombre  
+        de la columna que queremos insertar, agregamos la palabra (values) y le pasamos los datos que queremos agregar.
+
+            insert into categoria (nombre) values ('Aceites');
+
+        Tercera manera:
+        -Seguimos usando las 2 palabras (insert y into) seguido de ello agregamos el nombre de la tabla, dentro de un parentessis
+        agregamos los datos que queremos modificar y si son varios los separamos con una coma, luego agregamos un patentesis y 
+        agregamos los datos, si queremos agregar mas de una fila, lo que hacemos es separar los parentesis con un coma.
+
+            insert into codigobarras (serial, idProducto) values
+            ("1231546532", 1), ("4545676", 2), ("4564786", 3), ("455467", 4);
 */
