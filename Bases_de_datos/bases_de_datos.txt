@@ -95,6 +95,11 @@
         -Nos dirigimos al arbol donde tenemos los datos, dentro de nuestra base de datos, nos dirigimos a la seccion tabla.
         -Le damos click derecho y crear tabla, nos desplegara otro menu, donde llenaremos todos los datos que ya vimos.
         -Para mostrar la tabla haremos lo mismo que vimos hace un momento.
+
+    Para mostrar los datos de una tabla agregamos la palabra (select) luego un asterisco y agregamos la palabra (from) y agregamos 
+    el nombre de nuestra tabla, si nos aparece un error, agregamos una ruta relativa:
+
+        select * from tienda.producto;
 */
 
 //Relaciones entre tablas
@@ -176,4 +181,140 @@
 
             insert into codigobarras (serial, idProducto) values
             ("1231546532", 1), ("4545676", 2), ("4564786", 3), ("455467", 4);
+*/
+
+//Modificar registros de una tabla
+/*
+    Para modificar una fina de nuestra base de datos, lo que tenemos que hacer es agregar el nombre (update) y llamamos a la 
+    tabla que queremos modificar luego agregamos la palabra (set) y le damos el nombre de la columna que queremos modificar
+    la igualamos y agregamos el resultado que queremos agregar, pero tiene que ser del mismo tipo de dato por ultimo agregamos  
+    la palabra (where) y le damos el id de la fila que esta mos modificando.
+
+            update tienda.categoria set nombre = "Bebidas con gas" where idCategoria = 1;
+
+    si queremos hacer mas de un cambio lo que hacemos es separalos por una coma, de esta manera: 
+
+            update tienda.producto set nombre = "Gaseosa Pepsi", precio = 5.20 where idProducto = 2; 
+*/
+
+//Eliminar registros de una tabla
+/*
+    Para eliminar un producto necesitamos hacer el siguiente codigo: 
+
+        delete from producto where idProducto = 14;
+
+        -agregamos la palabra (delete) despues (from) seleccionamos la tabla, agregamos la palabra (where) y agregamos la 
+        columna que queremos eliminar;
+
+    Recuerda que si eliminas una fila de la tabla y esta tenia alguna relacion, esta eliminacion afectara a cada tabla, por lo que tendrias todo actualizado de una excelente manera.
+*/
+
+//Consultas dentro de las tablas
+/*
+    Hay varias maneras de hacer consultas dentro de las tablas, por lo que aqui veremos algunas:
+
+        Busqueda global
+            select * from producto;
+        
+            Esta busqueda ya la vimos, esta es una busqueda global, lo que quiere decir que nos mostrara todos los datos de 
+            nuestra tabla.
+
+        Alias temporal
+            select nombre as 'nombre del producto', precio, cantidad from producto;
+
+            Con este tipo de busquedas, le podemos agregar un nombre temporal a nuestra consulta.
+
+        Busqueda exacta
+            select nombre, precio from producto;
+
+            Esta busqueda es para buscar una fila en concreto. 
+
+        Consultas filtradas
+            select nombre, precio, cantidad from producto where cantidad = 100;
+
+            Con estas consultas buscamos filtrar los datos de mayor interes en ese momento.
+        
+        Busqueda de la menor y mayor cantidad
+            select min(cantidad) as 'cantidad minima', max(cantidad)as 'cantidad maxima' from producto;
+
+            Si queremos saber el mayor o menor dato de una tabla esta es la manera correcta de hacerlo.
+
+        Busaqueda ordenada ascendente
+            select nombre, precio from producto order by nombre asc;
+
+            Si queremos hacer una busqueda y que esta este organizada de manera ascendente, lo haremos con este codigo.
+
+        Busqueda ordenada decendente
+            select nombre, precio from producto order by nombre desc;
+
+            tambien podemos hacer consultas de manera decendente y se logran con este codigo.
+*/
+
+//Consultas mas avanzadas con operaciones
+/*
+    Este tipo de consultas tienen operadores logicos.
+
+        Operador and (&&)
+            select * from producto where idCategoria = 1 and cantidad >= 150;
+            
+            Esta busqueda hace una busqueda mas exacta de 2 o mas filas.
+            
+        Operador or (||)    
+            select * from producto where idCategoria = 1 or cantidad > 100; 
+
+            Esta busqueda hace una busqueda de cualquier opcion que sea verdadera.
+
+        Diferente de
+            select * from producto where idCategoria != 1;
+
+            Esta busquda se encarga de buscar una fila diferente a la seleccionada, se puede hacer de 2 maneras con (!=) o (<>).
+
+        Operador mayor, menor, mayor igual o menor igual
+            select * from producto where idCategoria > 100;
+
+            Esta busqueda funciona para hacer busquedas entre rangos.
+
+        Busquedas vacias
+            select * from producto where precio is null;
+
+            Con esta busqueda podemos mirar los campos vacios, tenemos que agregar la palabra (is null).
+
+        Busquedas diferentes a vacias
+            select * from producto where precio is not null;
+
+            Con esta busqueda obtenemos los datos que sean diferentes de vacio, para este agregamos las palabras (is not null)
+
+        Busquedas entre rangos    
+            select * from producto where precio between 2 and 5;
+
+            En esta busqueda seleccionamos 2 rangos y nos dara los datos que se encuentren dentro de ellos, usamos la palabra (between).
+
+        Busqueda fuera de 2 rangos
+            select * from producto where precio not between 2 and 5;
+
+            Esta busqueda pone 2 rangos y excluye los datos que se encuentran dentro de ese rango y nos muestra los demas
+            para este usamos la palabra (not between).
+
+        Busqueda con operadores logicos
+            select * from producto where cantidad = 50 + 50 + 50;
+
+            Podemos hacer busquedas con sumas, restas, ETC, solo hacemos una suma. 
+
+        Busqueda con filtros de palabras
+            select * from producto where nombre like 'Gaseosa%';
+
+            Para hacer un filtro, agregamos la palabra (like) y dentro de una cadena de caracteres agregamos la palabra que 
+            queremos buscar y la finalizamos con un (%).
+
+        Busqueda con la letra final de una palabra
+            select * from producto where nombre like '%o';
+
+            Esta busqueda es similar a la pasada, agregamos la palabra (like) y dentro de comillas agregamos un porcentaje
+            y agregamos la letra deseada.
+
+        Busqueda con letras en medio
+            select * from producto where nombre like '%osa%'
+
+            En esta busqueda tambien haremos uso del (like) y los porcentajes, entonces agregamos la palabra y dentro de las 
+            comillas agregamos un porcentaje, las letras que queremos buscar y finalizamos con un porcentaje.
 */
