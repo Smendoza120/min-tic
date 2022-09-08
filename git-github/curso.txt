@@ -1,0 +1,36 @@
+//Que es git
+/*
+    Esto se usa para poder guardar proyectos, ya sean proyectos laborales o proyectos personales, este repositorio se usa para 
+    guardar datos en la nube. 
+
+    Sistemas de control de versiones: Esto se usa para cuando haces cambio en una version y poder volver en las versiones para 
+    hacer los cambios respectivos, esto sirve para cuando trabajas con tu equipo y manejan diferentes versiones.
+
+    Git es un sistema de control de versiones.
+*/
+
+//Que es GitHub
+/*
+    GitHub nos permite organizar guardar nuestros documentos en la nube.
+    uno de los usos mas importantes es para hacer copias de seguridad.
+*/
+
+//Crear un proyecto
+/*
+    Nos vamos a la pagina de GitHub y le damos a (new repository), le agregamos un nombre, podemos agregar una descripcion
+    de nuestro proyecto, si lo deseamos, podemos agregar un repositorio publico o privado, el repositorio privado tienes Que
+    pagar para que se reserven tus derechos y nadie pueda ver el proyecto, podemos agregar una licencia, la pagina tiene un 
+    apartado con las licencias y solo tienes que darle a crear.
+*/
+
+//Clonar un repositorio
+/*
+    Para clonar un repositorio de GitHub, nos dirigimos al codigo que queremos clonar, hay un apartado que dice clone, copias 
+    el (url) y en nuestra terminal, agregamos el comando (git clone) y pegas la (url) copiada, le damos a enter y nos hace el 
+    clon.
+*/ 
+
+//Comandos
+/*
+    git merge: 
+*/

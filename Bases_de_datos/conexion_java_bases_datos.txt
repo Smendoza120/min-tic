@@ -1,0 +1,438 @@
+//Conexion entre Java y MySQL
+//Contenido
+/*
+    -Conector de MySQL para java
+    -Conexion entre Java y bases de datos en MySQL
+    -Que es un CRUD
+    -Que es el Modelo-Vista-Controlador (MVC)
+    -CRUD con Modelo-Vista-Controlador (MVC)
+    -Cargar tabla de BD en un JTable
+    -CRUD con JTable
+    -JComboBox Anidados con datos en una BD
+    -Guardar una imagen en una BD
+    -Reportes en PDF
+    -Reportes en Excel
+    -JCalendar con BD en Java
+    -Más controles con BD en java (JRadioButton, JCheckBox, JSpinner)
+    -Registro e inicio de sesión de usuarios
+*/
+
+//Conexion de MySQL para Java
+/*
+    Descargamos el conector que es (Conector/J(.jarr)), nos dirigimos al aplicativo de java, creamos un proyecto y le damos 
+    click derecho en la carpeta de librerias, le damos a (add jar/Folder), buscamos el aplicativo que descargamos y todo esta
+    listo, cada vez que creamos un proyecto nuevo, siempre tenemos que agregarla en cada proyecto.
+
+    Para hacer una conexion exitosa tenemos que hacer el siguiente paso a paso.
+
+        -Crear 3 variables globales las cuales son URL, usuario y contraseña.
+        -Para crear la variable URL, agregamos public static finel String url = "jdbc:mysql://localhost:3306/escuela?auto
+        Reconnet=true&useSSL=false", primero agregamos (jdbc:mysql:), luego agregamos el localhost y el numero del puerto nos lo 
+        da el aplicativo, le agregamos un slash donde le decimos que base de datos estaremos usando, y la siguiente configuracion
+        es para que el aplicativo de netbeans no arroje una excepcion.
+        -Para la variable usuario agregamos el nombre de nuestro usuario, tambien nos lo da el aplicativo de MySQL.
+        -La contraseña agregamos la misma contraseña que le pusimos al aplicativo.
+
+            public static final String URL = "jdbc:mysql://localhost:3306/escuela?autoReconnet=true&useSSL=false";
+            public static final String usuario = "root";
+            public static final String contraseña = "0811";
+
+        -Creamos una clase que sea publica o privada, en ves de agregar void agregamos Connection y le damos un nombre.
+        -Llamamos a la clase Connection y le agregamos un nombre cualquiera y la igualamos a null. 
+        -Hacemos un (try catch), en el try agregamos el nombre (Class) y le pasamos el metodo (forName), dentro de los 
+        parametros agregamos la siguiente ruta (com.mysql.cj.jdbc.Driver).
+        -Luego llamamos a la conexion y la igualamos a (DriverManager), le pasamos el metodo (getConnection) y como 
+        parametros le pasamos la URL, el usuario y contrasñea que habiamos creado.
+        -Si queremos mostramos un mensaje para que nos indique si esta o no correcto.
+        -Para el catch agregamos en los parametros (Exception e) y imprimimos si nos arroja un error.
+
+            public Connection getConnection(){
+                Connection conexion = null; 
+                
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    conexion = (Connection) DriverManager.getConnection(URL, usuario, contraseña);
+                    JOptionPane.showMessageDialog(null, "Conexion exitosa");
+                } catch (Exception e) {
+                    System.err.println("Error, " + e);
+                }
+                
+                return conexion;
+            }
+
+        -Para este ejemplo creamos un boton que si accionamos nos conecta a la base de datos y nos da un mensaje si fue 
+        efectivo, entonces en el metodo que creamos llamamos a Connection, le agregamos el nombre que tenia antes y la 
+        igualamos al metodo creado para la conexion.
+
+            private void botonConectarActionPerformed(java.awt.event.ActionEvent evt) {                                              
+                Connection conexion = getConnection();
+            } 
+*/
+
+//Consulta desde Java hacia la base de datos
+/*
+    Para hacer una consulta dentro de la base de datos, haremos lo siguiente: 
+
+        -Tenemos que crear 2 variables, estas las trataremos internas dentro de nuestro metodo.
+        -La primera variable es (PreparedStatement) le agregamos un nombre, aun no le damos ningun valor. 
+        -La segunda variable es (ResultSet) y le agregamos cualquier nombre, no le damos ningun valor.
+        -Creamos un (try catch), al catch le agregamo el respectivo mensaje de error.
+        -Con el try, llamamos a nuestras variables, primero llamamos a la primera varialbe y la igualamos a la (conexion)
+        y le pasamos el metodo (prepareStatement) y como parametros agregamos el comando de busqueda que usamos en MySQL, 
+        el cual es (select * from) y agregamos el nombre de la tabla para hacer la respectiva consulta, todo esto dentro de 
+        comillas.
+        -Luego llamamos a la segunda variable creada y la igualamos a la primera y le pasamos el metodo (executeQuery).
+        -Para hacer la consulta usamos normalmente un bucle while, pero como solo consultaremos un dato usaremos la condicional
+        if y como parametro le agregamos el nombre de la segunda variable y le pasamos el metodo (next).
+        -Agregamos un cuadro de texto para que nos muestre los datos de nuestra base de datos, para llamar los datos tenemos
+        que pasarlos a String, y lo que hacemos es agregar el nombre de la segunda variable y como parametro le agregamos 
+        (getString) y como parametro le pasamos el nombre de la columna, tal cual esta en la base de datos, de no hacerse 
+        nos arroja una excepcion.
+        -Solo queda cerrar la conexion fuera del if, quedaria de la siguiente manera.
+
+        private void botonConectarActionPerformed(java.awt.event.ActionEvent evt) {                                              
+            Connection conexion = getConnection();
+            PreparedStatement ps;
+            ResultSet rs;
+            
+            try {
+                ps = conexion.prepareStatement("select * from persona");
+                rs = ps.executeQuery();
+                
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Nombre: " + rs.getString("nombre") 
+                                + "\nDomicilio: " + rs.getString("domicilio") 
+                                + "\nCelular: " + rs.getString("celular")
+                                + "\nCorreo Electronico: " + rs.getString("correo_electronico")
+                                + "\nFecha Nacimiento: " + String.valueOf(rs.getDate("fecha_nacimiento"))
+                                + "\nGenero: " + rs.getString("genero"));
+                } else {
+                    JOptionPane.showMessageDialog(null, "No existen registros");
+                }
+                
+                conexion.close();  
+            } catch (Exception e) {
+                System.err.println("Error, " + e);
+            }
+        }    
+*/
+
+//Que es un CRUD
+/*
+    Es un acronimo de (Crear, Leer, Actualizar y Borrar) o en ingles (Create, Read, Update and Delete).
+
+        C: Create - Crear
+        R: Read - Leer
+        U: Update - Actualizar
+        D: Delete - Borrar
+
+    Interfaz grafica donde puedes (Crear, Leer, Actualizar y Borrar) datos.
+*/
+
+//Que es el Modelo-Vista-Controlador (MVC)
+/*
+    Separa nuestro programa en 3 componentes, esto se hace para poder reutilizar el codigo o hacer un mejor mantenimiento a 
+    nuestros aplicativos, programas o paginas, esto se utiliza desde componentes basicos hasta sistemas empresariales. 
+
+    Modelo:
+        Se encarga con la logica del aplicativo, desde datos, consultas, busquedas, ETC.
+
+    Vista: 
+        La representacion visual de los datos, todo lo que tenga que ver con interfaz grafica esta en este apartado, la vista
+        solo se encarga de esta apartado.
+
+    Controlador:
+        Es el encargado de controlar las ordenes del usuario, se encarga de solicitar los datos al modelo y comunicarselos a 
+        la vista.
+*/
+
+//Ejemplo MVC
+/*
+    En esta seccion haremos un ejemplo de MVC.
+
+        -Tenemos que crear varias secciones, las cuales se separan en modelo, vista y controlador, para este ejemplo haremos
+        2 secciones para agregar un numero y al darle a un boton, nos mostrara la respuesta a un costado.
+        -Creamos la carpeta de vistas, donde crearemos un Jframe, aqui agregamos las 2 secciones donde agregamos los numeros
+        incluyendo un boton y seguido de ello agregamos el campo para el resultado.
+
+        -Ahora vamos con el modelo, en este modelo, agregaremos las variables que usamos en nuestra seccion de vista.
+        -Las encapsulamos y creamos los metodos (Guetters and Setters).
+        -Hacemos un metodo para hacer la suma y retornamos el resultado.
+
+        -Nos dirigimos a nuestra carpeta del controlador, en esta vista es donde se hace la logica y programamos los botones,
+        en esta parte llamamos a nuestra vista y nuestro modelo, las encapsulamos. 
+        -Implementamos el con la palabra (implements) y agregamos (ActionListener).
+        -Llamamos a nuestro constructor.
+        -Dentro de nuestro constructor llamamos a la vista y le pasamos el metodo del boton el cual es el nombre del boton.
+        -A ese boton le pasamos el metodod (addActionListener) y como parametro le agregamos (this).
+        -Creamos un metodo vacio, dentro de este llamamos a la vista y le agregamos un titulo y tambien que nos quede en la 
+        mitad de la pagina.
+        -Una vez hacemos todo esto, implementamos el metodo abstracto.
+        -Dentro de este metodo, llamamos al metodo y le pedimos que envie un dato a la casilla numero1 y numero2, que es donde
+        se alojan nuestros datos.
+        -Como parametros le decimos que nos de los datos con el metodo(getText).
+        -Tenemos que pasar estos datos a enteros para poder hacer uso de ellos, usamos el metodo (Integer.parseInt)
+        -Llamamos al modelo para pasarle como parametro el metodo de sumar.
+        -Solo nos queda mostrar el resultado en la seccion de la respuesta.
+        -Esta respuesta tenemos que pasarla a String, por lo que le pasamos el metodo (String.valueOf).
+
+        public class Controlador implements ActionListener {
+            private Vista vista;
+            private Modelo modelo;
+
+            public Controlador(Vista vista, Modelo modelo) {
+                this.vista = vista;
+                this.modelo = modelo;
+                vista.botonSumar.addActionListener(this);
+            }
+            
+            public void iniciar(){
+                vista.setTitle("MVC Sumar");
+                vista.setLocationRelativeTo(null);
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modelo.setNumero1(Integer.parseInt(vista.cajaNumero1.getText()));
+                modelo.setNumero2(Integer.parseInt(vista.cajaNumero2.getText()));
+                modelo.sumar();
+                
+                vista.cajaResultado.setText(String.valueOf(modelo.getResultado()));
+            }
+        }
+*/
+
+//Cargar una tabla de BD en un JTable
+/*
+    Para hacer una conexion en la base de datos, tenemos que seguir los pasos de la seccion (Consulta desde Java hacia la base
+    de datos), si ya tenemos un archivo con esa conexcion, lo que hacemos es simplemente copiar dicho archivo y solo modificar  
+    la seccion del ULR, debido a que estamos tratando otra base de datos.
+
+    Para este ejemplo, crearemos una tabla donde si presinamos un boton nos muestre los datos de nuestra BD.
+
+    -Nos dirigimos a la parte del boton y ahi es donde haremos toda la logica.
+    -Tenemos que llamar a la interfaz (PreparedStatement) y (ResultSet), hacemos la respectiva importacion, les agregamos un 
+    nombre y las igualamos a null.
+    -Creamos el (try catch), en el catch agregamos el error correspondiente para cuando ocurra una excepcion.
+    -En la parte del try, llamamos a la clase conexion, le agregamos un nombre y luego la instanciamos. 
+    -Luego llamamos a la clase (Connection), le agregamos un nombre y le agregamos el nombre de la conexion y le pasamos el 
+    metodo de la conexion. 
+    -Luego nos dirigimos a la parte superior para agregar (DefaultTableModel) le agregamos un nombre y la instanciamos.
+    -Llamamos a la tabla y le pasamos el metodo (setModel) y le agregamos como parametro el nombre de la clase creada.
+    -Volvemos a la parte del try, llamamos al nombre de (PreparedStatement) y la igualamos a al nombre de (Connection).
+    -Le agregamos el metodo (prepareStatement) y como parametro selecionamos los datos necesarios, como hacemos en MySQL.
+    -Luego llamamos al nombre de (ResultSet) y lo igualamos al nombre de (PreparedStatement) y le pasamos el metodo 
+    (executeQuery).
+    -Añadimos las columnas, llamamos a la tabla y le agregamos el metodo (addColimn) y dentro agregamos el nombre de nuestras
+    columnas en la base de datos.
+    -Una vez las agregamos todas, hacemos un bucle while, donde el parametro es el nombre de (ResultSet) y le pasamos el metodo 
+    (next).
+    -Dentro de este bucle llamamos a la clase (Object) le agregamos un nombre y la instanciamos, esto lo haremos como un arreglo
+    de objetos, por lo que le agregamos las llaves tanto en el nombre como cuando lo instanciemos, le agregamos el numero de 
+    datos que queremos agregar.
+    -Hacemos un bucle for con el numero de datos y dentro de este bucle, agregamos el nombre de (Object) y dentro de las llaves
+    agregamos el iterador y lo igualamos al nombre de (ResultSet) y le pasamos el metodo (getObject) y como parametros agregamos
+    el iterador + 1 (i+1), para que no nos muestre la primera columna.
+    -Fuera del bucle for, pero dentro del while llamamos a la tabla y le agregamos una fila y le pasamos el nombre del (Object)
+
+
+        private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+            DefaultTableModel modeloTabla = new DefaultTableModel();
+            tablaProducto.setModel(modeloTabla);
+            
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            
+            try {
+                Conexion con = new Conexion();
+                Connection conexion = con.getConnection();
+                
+                ps = conexion.prepareStatement("select codigo,nombre,precio,cantidad from producto");
+                rs = ps.executeQuery();
+                
+                modeloTabla.addColumn("codigo");
+                modeloTabla.addColumn("nombre");
+                modeloTabla.addColumn("precio");
+                modeloTabla.addColumn("cantidad");
+                
+                while(rs.next()){
+                    Object fila[] = new Object[4];
+                    for(int i=0; i<4; i++){
+                        fila[i] = rs.getObject(i+1);
+                    }
+                    
+                    modeloTabla.addRow(fila);
+                }
+                
+            } catch (Exception ex) {
+                System.err.println("Error, " + ex);
+            }
+        }   
+*/
+
+//Buscar registro especifico en un JTable
+/*
+    Para esta explicacion seguiremos usando el ejemplo pasado, pero solo se agregara el codigo agregado y se dira donde se 
+    ira cada codigo.
+
+    -Nos dirigimos al inicio del codigo, despues de llamar a la tabla, aqui crearemos 2 variables, la primera le agregamos un 
+    nombre cualquiera pero tiene que ser un String la igualamos a la caja donde haremos la busqueda y tomamos el texto de esa 
+    caja. 
+    -La segunda variable tambien es un String y podemos agregarle un nombre en especifico si deseamos el cual es (where) lo 
+    igualamos a cadena vacia.
+    -Creamos un condicional if en el cual tendra por parametro si la primera variable esta vacia haga lo siguiente. 
+    -Dentro de la condicional agregamos el nombre de la segunda variable y la igualamos a ("where codigo='" + campo +"'").
+    -Ahora la segunda variable la concatenamos con el final del parametro de la busqueda, quedaria asi: 
+
+        String campo = cajaBuscar.getText();
+        String where = "";
+        
+        if(!"".equals(campo)){ //Si el campo no esta vacio
+            where = "where codigo='" + campo +"'";
+        }
+
+        ps = conexion.prepareStatement("select codigo,nombre,precio,cantidad from producto " + where);
+
+    -El ultimo codigo es donde hacemos la consulta, solo que le concatenamos la variable creada where.
+*/
+
+//Obtener la cantidad de columnas
+/*
+    Esto es necesario para cuando tengamos una base de datos muy grande y no sepamos cuantas columnas tenemos, el codigo 
+    lo agregamos dentro del (try catch), del ejemplo anterior.
+
+    -Llamamos a la clase (ResultSetMetaData), le agregamos un nombre y la igualamos al nombre de la interfaz (ResultSet) y 
+    obtenemos los datos con el metodo (getMetaData).
+    -Creamos una variable entera, la llamaremos (cantidadColumnas) y la igualamos al nombre de la clase pasada y le agregamos
+    el metodo (getColumnCount).
+    -Solo quedaria agregar el nombre de nuestra variable (cantidadColumnas).
+
+        ResultSetMetaData rsMD = rs.getMetaData();
+        int cantidadColumnas = rsMD.getColumnCount();
+*/
+
+//Cambiar el ancho de una columna
+/*
+    Para cambiar el ancho de una columna haremos lo siguiente, el codigo que lo agregamos dentro del (try catch) del ejemplo 
+    anterior:
+
+    -Hacemos un arreglo entero donde le agregamos los anchos de cada columna.
+    -Creamos un bucle for, dentro de este bucle lo que hacemos es llamar a la tabla y le agregamos los siguientes metodos, 
+    (getColumnModel), luego agregamos el metodo (getColumn) y como parametro le agregamos el iterador, luego agregamos el 
+    metodo (setPreferredWidth) y como metodo le agregamos el arreglo que creamos antes del bucle y le agregamos el iterador.
+
+        int anchos[] = {50,150,50,70};
+            
+        for(int i=0; i<cantidadColumnas; i++){
+            tablaProducto.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+*/
+
+//Pasar registros de un JTable a cajas de texto.
+/*
+    Seguimos usando el ejemplo anterior, para poder pasara registros de un JTablea una caja de texto tenemos que hacer lo 
+    siguiente. 
+
+        -Nos dirigimos a la tabla y le damos click, nos dirigimos al apartado de (events) y vamos a la parte que dice 
+        (mouseClicked) y le agregamos el evento.
+        -Nos pasara al codigo directamente y ahi es donde haremos el evento para poder pasar los datos a una caja de texto.
+        -Necesitamos agregar la conexion entre la tabla y la BD, como ya la teniamos solo copiamos y pegamos dentro de un 
+        (try catch), tambien nos traemos las clases (PreparedStatement y ResultSet), las igualas a null.
+        -Dentro de try catch creamos una variable entera, le agregamos un nombre, para este ejemplo se llamara fila, la 
+        igualamos a la tabla y le pasamos el metodo (getSelectedRow).
+        -Creamos otra variable pero esta es tipo String, el nombre que le dimos en este ejemplo es codigo y la igualamos a la
+        tabla, le pasamos el metodo (getValueAt) los parametros que le agregamos es la fila y 0 (fila, 0) y la pasamos a 
+        String con el metodo (toString), esto se hace para tomar los datos.
+        -Llamamos a clase (PreparedStatement) la igualamos a la conexion y le pasamos el metodo (prepareStatement), el parametro
+        que le agregamos es la formula pasa buscar datos en MySQL, seleccionamos los datos que deseamos y luego agregamos un 
+        where y el codigo lo igualamos a signo de pregunta.
+        -Volvemos a llamar a la clase (PreparedStatement), le pasamos el metodo (setString) y el parametro que le ponemos es la
+        posicion de la columna y el codigo (1, codigo).
+        -Llamamos a la clase (ResultSet) y la igualamos a la clase (PreparedStatement), le pasamos el metodo (executeQuery).
+        -Dentro de un bucle while, le pasamos como parametro la clase (ResultSet) y le pasamos el metodo (next).
+        -En este bucle llamamos a las cajas que tendran la informacion y se la agregamos con el metodo (setText), las cuales
+        estan almacenadas en la clase (ResultSet), tenemos que pasar todos los datos a String si estan de otra manera.
+        -Solo nos queda llenar la parte del (catch) y ejecutamos.
+
+            private void tablaProductoMouseClicked(java.awt.event.MouseEvent evt) {                                           
+                PreparedStatement ps = null;
+                ResultSet rs = null;
+                
+                try {
+                    Conexion con = new Conexion();
+                    Connection conexion = con.getConnection();
+                    
+                    int fila = tablaProducto.getSelectedRow();
+                    String codigo = tablaProducto.getValueAt(fila, 0).toString();
+                    
+                    ps = conexion.prepareStatement("select codigo,nombre,precio,cantidad from producto where codigo =?");
+                    ps.setString(1, codigo);
+                    rs = ps.executeQuery();
+                    
+                    while(rs.next()){
+                        cajaCodigo.setText(rs.getString("codigo"));
+                        cajaNombre.setText(rs.getString("nombre"));
+                        cajaPrecio.setText(String.valueOf(rs.getDouble("precio")));
+                        cajaCantidad.setText(String.valueOf(rs.getInt("cantidad")));
+                    }
+                    
+                } catch (Exception ex) {
+                    System.err.println("Error, " + ex);
+                }
+            }    
+*/
+
+//Llenar un JComboBox con datos de una BD
+/*
+    Para poder llevar los datos a nuestro combo box, es el mismo proceso que hicimos para ingresarlo en nuestro JTable.
+
+    -Primero hacemos la conexion, como ya lo teniamos en un proyecto, solo lo copiamos y lo pegamos.
+    -Dentro de nuestro proyecto, tenemos que crear el ComboBox.
+    -Agregamos nuestras clases (PreparedStatement y  ResultSet) y hacemos el mismo paso a paso que anteriormente, el nombre del 
+    primero es ps y el segundo es rs. 
+    -Creamos el (try catch) donde crearemos llamaremos a la conexion y le agregamos cualquier nombre para este ejemplo le 
+    pondremos con, tambien agregamos la clase (Connection) le agregamos un nombre el cual sera conexion y la igualamos a
+    (con), agregamos el metodo (getConnection).
+    -Llamamos a (ps) y lo igualamos a (conexion) y le pasamos el metodo (prepareStatement) y como parametro agregamos la 
+    busqueda de MySQL.
+    -Llamamos a (rs) y lo igualamos a (ps) y le pasamos el metodo (executeQuery).
+    -Creamos un bucle while y como parametro llamamos a (rs) y le pasamos el metodo (next).
+    -Dentro del bucle llamamos al ComboBox y le pasamos el metodo (addItem) y como parametro llamamos a (rs) y le pasamos el 
+    metodo (getString), donde le agregamos el nombre de la columna que queremos agregar.
+    -Fuera del bucle llamamos a (rs) y le pasamos el metodo (close).
+    -El ComboBox ya estaria lleno, pero si queremos que nos muestre un texto de selecionar como primera opcion, lo que hacemos
+    es, llamar al ComboBox y le pasamos el metodo (addItem) y como parametro le agregamos el texto deseado.
+
+        public ComboBox() {
+            initComponents();
+            setLocationRelativeTo(null);
+            
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            
+            comboPaises.addItem("Seleccione pais...");
+            
+            try {
+                Conexion con = new Conexion();
+                Connection conexion = con.getConnection();
+                
+                ps = conexion.prepareStatement("select nombrePais from paises");
+                rs = ps.executeQuery();
+                
+                while(rs.next()){
+                    comboPaises.addItem(rs.getString("nombrePais"));
+                }
+                
+                rs.close();
+                
+            } catch (Exception e) {
+                System.err.println("Error, " + e);
+            }
+        }
+*/
+
+//Seleccionar desde un JComboBox y llenar datos en un JTable
+/*
+    
+*/
+
