@@ -81,7 +81,7 @@
         -Para una fecha usamos la palabra (date) y como default agregamos una visual para llenar este campo.
 
 
-        -Si vamos a mostrar la tabla usamos el comando (show talbes) y nos mostrara las tablas que hemos creado.
+        -Si vamos a mostrar la tabla usamos el comando (show tables) y nos mostrara las tablas que hemos creado.
         -Para mostrar el contenido de la tabla usamos el comando (show columns from) y agregamos el nombre de nuestra tabla.
         -Para eliminarla usamos el mismo comando visto el cual es (drop table) y agregamos el nombre de la tabla.
 
@@ -154,7 +154,14 @@
 
         Para tener una relacion de muchos a muchos, lo hacemos con un intermediario, donde se uniran varias tablas, el ejemplo
         se lee de la siguiente manera, 1 producto lo pueden traer muchos proveedores, y un proveedor puede tener muchos 
-        productos y la tabla union, hace como un puentre entre una tabla y otra.                          
+        productos y la tabla union, hace como un puentre entre una tabla y otra.       
+
+    Para tener una explicacion mas visual, el aplicativo nos permite hacerlo, haremos el siguiente paso a paso:
+
+        -Nos dirigimos a la seccion (Database).
+        -Le damos click en (Reverse Enginner).
+        -Le damos next hasta que nos aparezca las bases de datos que tenemos y seleccionamos la que nos interesa.
+        -Hacemos click hasta el final de las pantallas y nos dara una mejor visual de nuestras tablas y como se relacionan.                   
 */
 
 //Insertar registros en las tablas
@@ -180,7 +187,7 @@
         agregamos los datos, si queremos agregar mas de una fila, lo que hacemos es separar los parentesis con un coma.
 
             insert into codigobarras (serial, idProducto) values
-            ("1231546532", 1), ("4545676", 2), ("4564786", 3), ("455467", 4);
+            ("1231546532", 1), ("4545676", 2), ("4564786", 3), ("455467", 4); 
 */
 
 //Modificar registros de una tabla
@@ -317,4 +324,294 @@
 
             En esta busqueda tambien haremos uso del (like) y los porcentajes, entonces agregamos la palabra y dentro de las 
             comillas agregamos un porcentaje, las letras que queremos buscar y finalizamos con un porcentaje.
+*/
+
+//Consultas en varias tablas
+/*
+    Para hacer consultas en varias tablas haremos lo siguiente: 
+
+            select * from producto as p inner join categoria as c on p.idCategoria = c.idCategoria where p.cantidad > 100;
+
+        -Agregamos los mismos nombres los cuales son (select) y (from).
+        -Agregamos la lista donde queremos hacer la consulta, le agregamos un alias en este caso sera (p).
+        -Para unir las consultas agregamos (inner join) y agregamos la lista que queremos consultar. 
+        -Luego agregamos (on) y agregamos en que coinciden o porque se unen las tablas, en este ejemplo lo que los une son 
+        el (idCategoria).
+        -Se pueden hacer filtros logicos, como en el ejemplo pasado, solo agregamos la palagra (where) y agregamos el filtro
+        deseado.
+
+        -Se pueden unir mas listas si lo deseamos, solo tenemos que hacer el mismo prosedimiento, el cual es agregar 
+        (inner join) y agregamos la lista que queremos consultar, hacemos la comparacion entre las listas que se parecen y 
+        de esta manera hacemos una consulta con varias tablas.
+
+        -Recuerda que en el * van los datos que queremos mostrar, si queremos mostrar datos especificos de las tablas solo 
+        agregamos el nombre del alias y como si se tratara de un metodo llamamos lo que queremos mostrar, lo mostraremos mejor
+        con un ejemplo.
+
+            select p.nombre, p.precio, p.cantidad, c.nombre as 'Categoria' from producto as p 
+            inner join categoria as c on p.idCategoria;
+*/
+
+//Vistas
+/*
+    Es una forma sensilla de guardar una consulta muy extensa, donde ya consultamos mas de 1 tabla a la vez, mostraremos un 
+    ejemplo y explicaremos que hace.
+
+            create view vista_producto_categoria as
+            select p.nombre, p.precio, p.cantidad, c.nombre as 'categoria' from 
+            producto as p
+            inner join categoria as c on p.idCategoria = c.idCategoria;
+
+        -Tenemos esta consulta que nos busca el nombre, precio y cantidad de la tabla producto y el nombre de la tabla 
+        categoria y estas consultas las igualamos por la columna similar.
+        -Para crear una vista y que nos guarde esta consulta agregamos el nombre (create view) y le agregamos un nombre 
+        agregamos as y luego la consulta, al ejecutarla nos aparecera un apartado de vistas, donde se encuentra guardada esta   
+        consulta que acabamos de hacer. 
+        -Para hacer uso de esta consulta, solo tenemos que agregar (select * from) y el nombre de la consulta.
+
+            select * from vista_producto_categoria;
+*/
+
+//Procedimientos almacenados
+/*
+    Esto es similar a un metodo en java, son determinadas acciones que se ejecutan cuando uno lo indica, primero compariremos
+    el ejemplo y explicaremos como funciona.
+
+            delimiter //
+            create procedure productosXcategoria (in id int) 
+            begin
+                select * from producto where idCategoria = id;
+            end//
+            delimiter ; 
+
+        -Agregamos la palabra (delimiter //) con 2 slash.
+        -Agregamos la palabra (create procedure) y le agregamos un nombre, si queremos agregarle parametros a este Procedimiento
+        abrimos parentesis y agregamos la palabra (in) el nombre que queremos buscar y el tipo de dato, si queremos tener mas 
+        parametros solo basta con agregar una coma y agregar nuevamente la palabra (in) y el tipo de dato.
+        -Agregamos 2 palabras que nos marcara el inicio y fin del procedimiento (begin y end) y dentro de estas 2 palabras 
+        ponemos lo que queremos hacer, en este ejemplo, queremos hacer una consulta y le agregamos un filto, que nos dice 
+        muestranos el id que agregaras en el parametro.
+        -Finalizamos con la palabra delimiter, agregamos un espacio y colocamos un punto y coma, no se pude dejar pegado ya 
+        que nos arroja un error.
+        -Debajo de la seccion de vistas, nos generara el procedimiento, para hacer uso de el, agregamos la palabra (call) y 
+        agregamos el nombre del procedimiento:
+
+            call productosXcategoria(1);
+
+        -Se le agrega un parametro ya que asi fue como lo indicamos y si ejecutamos, hara la funcion que le pusimos, en este 
+        caso nos mostrara la tabla producto donde la categoria es igual a 1.
+
+        -Para eliminar una tabla o una vista hacemos lo siguiente:
+
+            drop procedure productosXcategoria;
+            drop view vista_5tablas; 
+
+        -Agregamos la palabra (drop) seguido de ello agregamos de que archivo se trata si es de una vista o un procedimiento y
+        agregamos el nombre, cuando ejecutemos estos se borraran.
+*/
+
+//Triggers
+/*
+    Son eventos que se ejecutan automaticamente cuando se cumpla cierta accion, estos eventos se pueden ejecutar antes o despues
+    de una determinada accion, lo veremos mejor con un ejemplo.
+
+            Delimiter |
+            create trigger insertarTemp before insert on categoria
+            for each row
+            begin 
+                insert into temporal (categoria) values (new.nombre);
+            end |
+
+        -Agregamos la palabra (Delimiter |) y tambien agregamos este simbolo, es el mismo del or.
+        -Agregamos (create trigger) agregamos el nombre que deseamos. 
+        -Luego le decimos si queremos que se ejecute antes (before) o despues (after) y agregamos (on) para que le diga al 
+        programa antes o despues de que se ejecutara.
+        -Agregamos (for each row), le estamos diciendo que agrege una fila, luego agregamos las palabras (begin end) y dentro
+        de estas agregamos lo que queremos que haga, para este ejemplo queremos que inserte un nuevo nombre a la tabla 
+        temporal en la fila categoria.
+        -Ejecutamos esta linea.
+
+        Ahora si agregamos un nuevo elemento a nuestra tabla categoria, automaticamente la tabla temporal hara lo mismo, esto
+        es especialmente util, si tenemos tablas donde tenemos que llenar datos en comun, entonces hacemos un trigger y lo hara
+        en las otras tablas tambien.
+*/
+
+//Respaldo y restauracion de una base de datos en MySQL
+/*
+    Para poder pasar los datos de una computadora a otra, o si queremos formatear la computadora sin que los registros se nos
+    dañen hacemos lo siguiente.
+
+        -Hacer una backup o una copia de respaldo, nos dirigimos a (server), luego (Data export).
+        -Seleccionamos la base de datos.
+        -Seleccionamos las tablas que queremos.  
+        -Podemos seleccionar si queremos hacer el respaldo en una carpeta o si queremos guardarlo en un documento.
+        -Lo mas recomendable es hacerlo en un documento y podemos seleccionar la ruta donde ira la base de datos, podemos 
+        modificar el nombre si asi lo deseamos.
+        -Cuando ya modificamos la configuarion, le damos al boton de exportar. 
+        -En el respaldo guarda absolutamente todo, como datos, tablas, ETC.
+
+    Si nos encontramos en otra computadora o ya terminamos de formatear la nuestra, hacemos lo siguiente: 
+    
+        -Nos dirigirnos al aplicativo. 
+        -Vamos a la seccion de (server), luego a (Data import).
+        -Seleccionamos el archivo donde guardamos los datos exportados y lo abrimos.
+        -Nos pedira en donde queremos guardar esta base de datos, lo podemos hacer en una existente o crear una nueva.
+        -Si creamos una nueva, la buscamos en el listado y le damos a (start import).
+        -Actualizamos y ya nuestros datos estaran registrados, ya podemos hacer uso del aplicativo como haciamos antes.
+*/
+
+//Pintar una imagen en un JPanel
+/*
+    Para pintar una imagen en un panel haremos lo siguiente: 
+
+        -Creamos nuestro (JFrame).
+        -Creamos 2 variables, una para el ancho y la otra para el alto, las igualamos al panel y obtenemos el ancho y alto.
+        -Creamos otra variable, la cual contendra la ruta de nuestra imagen. 
+
+            int ancho = panelImagen.getWidth();
+            int alto = panelImagen.getHeight();
+            
+            String ruta = "/imagenes/baloncesto.png";
+
+        -Creamos una clase que herede del (JPanel).
+        -Creamos una variable llamada ruta.
+        -Hacemos un constructor de la clase y como parametros le agregamos el ancho, alto y la ruta.
+        -Llamamos al tamaño y le pasamos como parametros el ancho y el alto.
+        -Llamamos a la ruta y la igualamos a la ruta.
+        -Creamos un metodo publico que nos retorne vacio y le agregamos el nombre (paint) y le pasamos como parametros 
+        (Graphics g).
+        -Agregamos la clase (Dimension), le agregamos un nombre y lo igualamos al tamaño,
+        -Creamos una imagen, le agregamos el nombre y la instanciamos, como parametro tomamos la clase y le pasamos el metodo
+        para obtener el recurso (getClass().getResourse()) y como parametro le pasamos la ruta.
+        -Llamamos a la (g) y le pasamos el metodo (drawImage) y como parametro, obtenemos la imagen, le agregamos el tamaño 0
+        tanto a largo como a ancho, luego nos piden el largo y ancho de la caja, entonces llamamos al tamaño y le pasamos los
+        parametros de ancho y alto y por ultimo agregamos null.
+        -Agregamos el metodo (setOpaque) y lo dejamos en false. 
+        -Llamamos al metodo super y le pasamos el metodo (paintComponent) y como parametro agregamos la (g).
+
+            public class Imagen extends javax.swing.JPanel{
+                private String ruta;
+                
+                public Imagen(int ancho, int alto, String ruta){
+                    this.setSize(ancho, alto);
+                    this.ruta = ruta;
+                }
+                
+                @Override
+                public void paint(Graphics g){
+                    Dimension tamaño = getSize();
+                    ImageIcon img = new ImageIcon(getClass().getResource(ruta));
+                    g.drawImage(img.getImage(), 0, 0, tamaño.width, tamaño.height, null);
+                    setOpaque(false);
+                    super.paintComponent(g);
+                }
+            }
+
+        -Volvemos al (JFrame) aqui creamos una imagen, la cual le pasamos los parametros de ancho, alto y la ruta, llamamos al
+        panel de la imagen y añadimos la imagen.
+        -Volvemos a llamar al panel y le pasamos el metodo (repaint).
+
+            public Ventana() {
+                initComponents();
+                setLocationRelativeTo(null);
+                
+                int ancho = panelImagen.getWidth();
+                int alto = panelImagen.getHeight();
+                
+                String ruta = "/imagenes/baloncesto.png";
+                
+                Imagen imagen = new Imagen(ancho, alto, ruta);
+                panelImagen.add(imagen);
+                panelImagen.repaint();  
+            }
+
+*/
+
+//Seleccionar una imagen con JFileChooser
+/*
+    En esta seccion seguiremos trabajando con el ejemplo pasado, por lo que agregaremos un boton, para que nos muestre todos
+    los archivos que tenemos en la computadora, pero que esten filtrados por (png y jpg), y cuando escojamos la imagen, esta
+    se agregue a nuestro panel. 
+
+        -Dentro de nuestro boton agregamos la clase (JFileChooser) le agregamos un nombre el cual sera escoger y la 
+        instanciamos.
+        -Llamamos a escoger y le pasamos el metodo (setFileSelectionMode), como parametro agregamos (JFileChooser) y le 
+        pasamos el metodo (FILES_AND_DIRECTORIES), esto se hace para establecer el modelo.
+        -Ahora aplicaremos el filtro, por lo cual llamaremos a la clase (FileNameExtensionFilter), le agregamos un nombre 
+        el cual es filtro y la instanciamos, como parametros le pasamos 2 cosas, la primera es como se vera el filtro y el 
+        otro es para hacer el respectivo filtro.
+        -Llamamos a escoger y le pasamos el metodo (setFileFilter) y como parametro le pasamos el nombre del filtro. 
+        -Creamos una variable esta sera entera y la igualamos a escoger y le pasamos el metodo (showOpenDialog) y como 
+        parametro le agregamos (this), esto se hace para saber cual opcion fue seleccionada.
+        -Haremos una condicional, la cual dira si el usuario escogio aceptar.
+        -Llamamos a la clase (File) le damos un nombre en este caso se llamara archivo y la igualamos a escoger y le pasamos
+        el metodo (getSelectedFile), esto se hace para obtener el archivo seleccionado.
+        -Luego creamos otra variable la cual sera para la ruta del archivo seleccionado, esta la igualamos a archivo y le 
+        pasamos el metodo (getAbsolutePath).
+        -Lo demas sera agregar el ancho, alto, agregar la imagen y pasandole los mismos parametros, añadirlo al panel y 
+        llamamos al metodo. 
+
+            private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+                JFileChooser escoger = new JFileChooser();
+                escoger.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);//Establecemos el modelo
+                FileNameExtensionFilter filtro = new FileNameExtensionFilter("*png", "png");
+                FileNameExtensionFilter filtro2 = new FileNameExtensionFilter("*.jpg", "jpg");
+                escoger.setFileFilter(filtro);
+                escoger.setFileFilter(filtro2);
+                
+                int seleccion = escoger.showOpenDialog(this);//Darnos cuenta cual a sido la opcion seleccionada
+                
+                if(seleccion == JFileChooser.APPROVE_OPTION){ //Si el usuario escogio aceptar
+                    File archivo = escoger.getSelectedFile(); //Obtenemos el archivo seleccionado
+                    String ruta = archivo.getAbsolutePath(); //Obtenemos la ruta del archivo seleccionado
+                    
+                    int ancho = panelImagen.getWidth();
+                    int alto = panelImagen.getHeight();
+                    
+                    Imagen imagen = new Imagen(ancho, alto, ruta);
+                    panelImagen.add(imagen);
+                    panelImagen.repaint();
+                } 
+            }   
+
+        -En la parte de la imagen, lo unico que cambiamos es la ruta, como la ruta ya no se la damos antes, si no que sera 
+        seleccionada.
+        -Llamamos a la clase (Image), le agregamos un nombre y la instanciamos con (ImageIcon), como parametro le agregamos 
+        la ruta y le damos la imagen con el metodo (getImage).
+        -Para dibujarla, solo le pasamos el nombre de la imagen creada sin parametro y el resto igual.
+
+            public class Imagen extends javax.swing.JPanel{
+                private String ruta;
+                
+                public Imagen(int ancho, int alto, String ruta){
+                    this.setSize(ancho, alto);
+                    this.ruta = ruta;
+                }
+                
+                @Override
+                public void paint(Graphics g){
+                    Dimension tamaño = getSize();
+                    //ImageIcon img = new ImageIcon(getClass().getResource(ruta));
+                    Image img = new ImageIcon(ruta).getImage();
+                    
+                    g.drawImage(img, 0, 0, tamaño.width, tamaño.height, null);
+                    setOpaque(false);
+                    super.paintComponent(g);
+                }
+            }   
+*/
+
+//Guardar una imagen en una BD
+/*
+
+*/
+
+//Mostrar una imagen guardada en una BD
+/*
+
+*/
+
+//Reportes en PDF, descargar iReport
+/*
+    Necesitamos un puging 
 */
