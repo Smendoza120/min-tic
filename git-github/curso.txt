@@ -33,6 +33,9 @@
 //Comandos
 /*
     git merge: 
-    asd
-    asd
+    
+    cambio
+
+    Nuevo cambio;
 */
+
