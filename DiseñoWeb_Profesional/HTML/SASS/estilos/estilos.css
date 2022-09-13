@@ -1,0 +1,31 @@
+body {
+  background: #f2f2f2;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.boton, .btn-verde, .btn-azul, .btn-rojo {
+  display: inline-block;
+  padding: 15px 20px;
+  background: none;
+  color: #fff;
+  text-decoration: none;
+  margin: 5px 8px;
+  border-radius: 25px;
+}
+.boton:hover, .btn-verde:hover, .btn-azul:hover, .btn-rojo:hover {
+  background: #fff;
+  border: 2px solid rgba(255, 39, 50, 0.5);
+  color: #ff2732;
+}
+
+.btn-rojo {
+  background: #ff2732;
+}
+
+.btn-azul {
+  background: #246eb9;
+}
+
+.btn-verde {
+  background: #4fb560;
+}/*# sourceMappingURL=estilos.css.map */
