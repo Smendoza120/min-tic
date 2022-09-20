@@ -1,0 +1,7 @@
+Sistema de columnas
+    Botstrap trabaja con un sistema de 12 columnas 
+    -Header: 12 columnas
+    -Main: 8 columnas
+    -Aside: 4 columnas
+    -Cards: 3 columnas
+    -Footer: 12 columnas
