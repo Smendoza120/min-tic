@@ -1,0 +1,11 @@
+Sistema de columnas
+    Botstrap trabaja con un sistema de 12 columnas 
+    -Header: 12 columnas
+    -Main: 8 columnas
+    -Aside: 4 columnas
+    -Cards: 3 columnas
+    -Footer: 12 columnas
+
+    Para poder empezar a crear paginas web con uso de bootstrap, necesitamos primero declarar un contenedor el cual tendra 
+    todo el codigo de la pagina, seguido de ello tenemos que crear una fila y dentro agregar una columna, para que ahora si 
+    podamos agregar el contenido deseado.
